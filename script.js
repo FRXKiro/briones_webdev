@@ -327,8 +327,8 @@ for (var e = 0; e < elButtons.length; e++) {
 }
 
 // 7. Make a Wish
-var fiveStars = ["Venti", "Zhongli", "Ei", "Nahida", "Furina", "Mavuika", "Columbina"];
-var fourStars = ["Bennett", "Xiangling", "Fischl", "Sucrose"];
+var fiveStars = ["Venti", "Zhongli", "Raiden Shogun", "Nahida", "Furina", "Mavuika", "Columbina", "Skirk", "Sandrone", "Mualani", "Neuvilette", "Arlecchino", "Citlali"];
+var fourStars = ["Bennett", "Xiangling", "Sucrose", "Aino", "Lynette", "Collei", "Iansan", "Alyosha", "Kuki Shinobu", "Noelle", "Charlotte"];
 var wishResult = document.getElementById("wish-result");
 
 document.getElementById("wish-btn").onclick = function () {
