@@ -347,7 +347,7 @@ document.getElementById("wish-btn").onclick = function () {
         flash("rgba(160, 100, 220, 0.5)");
         emojiRain(["✨"], 15);
     } else {
-        wishResult.textContent = "3 stars: Another Slingshot... try again!";
+        wishResult.textContent = "3 stars: Yup you guessed it, the legendary Dull Blade... try again!";
         flash("rgba(80, 140, 255, 0.4)");
     }
     foundEgg("wish");
