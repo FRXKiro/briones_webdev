@@ -204,7 +204,7 @@ document.getElementById("wish-btn").onclick = function () {
         var four = fourStars[Math.floor(Math.random() * fourStars.length)];
         wishResult.textContent = "4 stars: " + four;
     } else {
-        wishResult.textContent = "3 stars: Another Slingshot... try again!";
+        wishResult.textContent = "3 stars: You guessed it, the legendary Dull Blade... try again!";
     }
     foundEgg("wish");
 };
