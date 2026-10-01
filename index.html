@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Dev Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <a href="#home" class="logo">Mark Briones</a>
+        <button id="menu-btn">Menu</button>
+        <ul id="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#activities">Activities</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO: all the characters are picked from the thumbnails -->
+    <header id="home">
+        <img id="hero-img" src="images/archons.jpg" alt="">
+        <div class="hero-shade"></div>
+        <div class="hero-text">
+            <p>BSIT Web Development</p>
+            <h1>My Portfolio</h1>
+            <p id="hero-name">The Archons</p>
+            <a class="btn" href="#activities">See my activities</a>
+        </div>
+        <div class="thumbs">
+            <img class="thumb" src="images/archons.jpg" alt="The Archons">
+            <img class="thumb" src="images/venti.jpg" alt="Venti">
+            <img class="thumb" src="images/zhongli.jpg" alt="Zhongli">
+            <img class="thumb" src="images/ei.jpg" alt="Ei">
+            <img class="thumb" src="images/nahida.jpg" alt="Nahida">
+            <img class="thumb" src="images/furina.jpg" alt="Furina">
+            <img class="thumb" src="images/mavuika.jpg" alt="Mavuika">
+            <img class="thumb" src="images/columbina.jpg" alt="Columbina">
+            <img class="thumb" src="images/anastasya.jpg" alt="Anastasya">
+        </div>
+    </header>
+
+    <main>
+        <!-- ABOUT -->
+        <section id="about">
+            <div class="about-box">
+                <div>
+                    <h2>About</h2>
+                    <p>I'm Mark, an IT student learning how to build websites with HTML, CSS and JavaScript.
+                       This page collects the activities I made in class. Every card below opens the activity in a new tab.</p>
+                    <div class="stats">
+                        <div><strong id="count">0</strong><span>Activities</span></div>
+                        <div><strong>3</strong><span>Languages</span></div>
+                        <div><strong>9</strong><span>Characters</span></div>
+                    </div>
+                </div>
+                <img src="images/anastasya.jpg" alt="Anastasya">
+            </div>
+        </section>
+
+        <!-- ACTIVITIES -->
+        <section id="activities">
+            <h2>Activities</h2>
+            <div class="cards">
+                <article class="card">
+                    <img src="images/ei.jpg" alt="Ei">
+                    <div class="card-body">
+                        <h3>Activity 3: Kiro Eats</h3>
+                        <p>A Japanese food delivery site with a menu table, an order form and a profile page.</p>
+                        <p class="tags">HTML &middot; CSS &middot; Forms &middot; Tables</p>
+                        <a class="btn" href="activity3/Index.html" target="_blank">Open Activity 3</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img src="images/columbina.jpg" alt="Columbina">
+                    <div class="card-body">
+                        <h3>Activity 5: Teyvat Fan Hub</h3>
+                        <p>A Genshin Impact fan page with a registration form, a tier list and a profile card.</p>
+                        <p class="tags">HTML &middot; CSS &middot; Forms &middot; Layout</p>
+                        <a class="btn" href="activity5/home.html" target="_blank">Open Activity 5</a>
+                    </div>
+                </article>
+            </div>
+            <p class="note">More activities will be added here later.</p>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Leave a message and see it show up below.</p>
+            <form id="contact-form">
+                <input type="text" id="cname" placeholder="Your name" required>
+                <textarea id="cmsg" rows="3" placeholder="Your message" required></textarea>
+                <button type="submit" class="btn">Send</button>
+            </form>
+            <ul id="messages"></ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Mark Briones | Student project, not affiliated with HoYoverse</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

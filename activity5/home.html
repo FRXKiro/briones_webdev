@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teyvat Fan Hub</title>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="tier.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+    <header>
+        <h1>Teyvat Fan Hub</h1>
+        <p>Unofficial fan site for Genshin Impact travelers</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#registration">Registration</a></li>
+            <li><a href="#tiers">Tier List</a></li>
+            <li><a href="#profile">Profile</a></li>
+        </ul>
+    </nav>
+
+    <!-- HOME -->
+    <main>
+        <section class="hero">
+        <h2>Welcome, Traveler!</h2>
+        <p>Explore Teyvat, track your favorite characters, and register your traveler profile below.</p>
+        <div>
+            <span class="element-tag tag-anemo">Anemo</span>
+            <span class="element-tag tag-pyro">Pyro</span>
+            <span class="element-tag tag-hydro">Hydro</span>
+            <span class="element-tag tag-electro">Electro</span>
+            <span class="element-tag tag-dendro">Dendro</span>
+            <span class="element-tag tag-cryo">Cryo</span>
+            <span class="element-tag tag-geo">Geo</span>
+        </div>
+        <div class="hero-links">
+            <a class="btn" href="#registration">Register Now</a>
+            <a class="btn" href="#tiers">Tier List</a>
+            <a class="btn" href="#profile">See Profile</a>
+        </div>
+        </section>
+
+        <div class="landing-lower">
+            <section id="about">
+                <h2>About This Site</h2>
+                <p>A small fan-made student project for a Web Development lesson: register as a traveler,
+                    browse a fan character tier list, and check a sample profile page.
+                    Not affiliated with HoYoverse or miHoYo. 
+                </p>
+            </section>
+
+            <aside>
+                <h3>Did You Know?</h3>
+                <ul>
+                    <li>Teyvat has its own laws</li>
+                    <li>Paimon is the best travelling companion. EVER!</li>
+                    <li>Character's vision will glow brighter when their burst is ready</li>
+                </ul>
+            </aside>
+        </div>
+
+        <!-- Registration -->
+         <section id="registration">
+            <h2>Traveler Registration</h2>
+            <p>Fill out the form below to register your traveler account.
+                No password needed -  this is just a practice form. 
+            </p>
+
+            <form action="#" method="get">
+                <fieldset>
+                    <legend>Basic Information</legend>
+
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Enter your in-game name" required>
+
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+                    <label for="joindate">Date You Started Playing</label>
+                    <input type="date" id="joindate" name="joindate">
+
+                    <label for="playtime">Preferred Daily Play Time</label>
+                    <input type="time" id="playtime" name="playtime">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Game Information</legend>
+
+                    <label for="worldlevel">World Level</label>
+                    <select id="worldlevel" name="worldlevel"></select>
+                     <option value="">-- Select World Level --</option>
+                     <option value="wl0">World Level 0</option>
+                     <option value="wl1">World Level 1</option>
+                     <option value="wl2">World Level 2</option>
+                     <option value="wl3">World Level 3</option>
+                     <option value="wl4">World Level 4</option>
+                     <option value="wl5">World Level 5</option>
+                     <option value="wl6">World Level 6</option>
+                     <option value="wl7">World Level 7</option>
+                     <option value="wl8">World Level 8</option>
+                    </select>
+
+                    <label>Server</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="server" value="asia checked"> Asia </label>
+                        <label><input type="radio" name="server" value="america"> America </label>
+                        <label><input type="radio" name="server" value="europe"> Europe </label>
+                        <label><input type="radio" name="server" value="twhkmo"> TW / HK / MO </label>
+                    </div>
+
+                    <label>Interested In (choose any)</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="interest" value="wishing">Wishing / Gacha</label>
+                         <label><input type="checkbox" name="interest" value="abyss">Spiral Abyss</label>
+                          <label><input type="checkbox" name="interest" value="coop">Co-Op Exploration</label>
+                           <label><input type="checkbox" name="interest" value="events">Limited Time Events</label>
+                            <label><input type="checkbox" name="interest" value="tcg">Genius Invocation TCG</label>
+                    </div>
+                </fieldset>
+
+                <div class="form-buttons">
+                    <button type="reset">Clear Form</button>
+                    <button type="submit">Register</button>
+                </div>
+
+                </form>
+              </section>
+
+                <!-- TIER LIST -->
+                 <section id="tiers">
+                    <h2>Fan Character Tier List</h2>
+                    <p>Just a fun, opinion-based ranking made for this exercise - not an official ranking.</p>
+
+                    <table>
+                        <caption>Character Tier List (Community Opinion)</caption>
+                        <thead>
+                            <tr>
+                                <th>Tier</th>
+                                <th>Character</th>
+                                <th>Element</th>
+                                <th>Weapon</th>
+                                <th>Region</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tier-S">S</td>
+                                <td>Mavuika</td>
+                                <td>Pyro</td>
+                                <td>Claymore</td>
+                                <td>Natlan</td>
+                                <td>Powerful Pyro Archon with strong burst damage</td>
+                            </tr>
+                            <tr>
+                                <td class="tier-S">S</td>
+                                <td>Columbina</td>
+                                <td>Hydro</td>
+                                <td>Catalyst</td>
+                                <td>Nod-Krai</td>
+                                <td>Moon Goddess of Nod-Krai, enables Lunar reaction</td>
+                            </tr>
+                            <tr>
+                                <td class="tier-S">S</td>
+                                <td>Sandrone</td>
+                                <td>Cryo</td>
+                                <td>Claymore</td>
+                                <td>Fontaine</td>
+                                <td>7th of the Fatui Harbingers, allows Stellar-Conduct reaction</td>
+                            </tr>
+                             <tr>
+                                <td class="tier-S">S</td>
+                                <td>Lauma</td>
+                                <td>Dendro</td>
+                                <td>Catalyst</td>
+                                <td>Nod-Krai</td>
+                                <td>Provides off-field Dendro application, can enable Lunar-Bloom reaction</td>
+                            </tr>
+                             <tr>
+                                <td class="tier-S">S</td>
+                                <td>Bennet</td>
+                                <td>Pyro</td>
+                                <td>Sword</td>
+                                <td>Mondstadt</td>
+                                <td>Classic healer/buffer, a staple in many teams</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">Note: This list is subjective and made for practice purposes only.</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                 </section>
+
+                 <!-- PROFILE -->
+                  <section id="profile" class="profile-main">
+                    <aside>
+                        <h3>Quick Stats</h3>
+                        <ul class="profile-list">
+                            <li>Adventure Rank: 60</li>
+                            <li>World Level: 8</li>
+                            <li>Element: Cryo</li>
+                            <li>Server: Asia</li>
+                        </ul>   
+                    </aside>
+
+                    <div class="profile-card">
+                        <div class="profile-photo">PHOTO</div>
+                        <h2>Aether (Traveler)</h2>
+                        <p><strong>Region:</strong> Off-World</p>
+                        <p><strong>Weapon Type:</strong> Sword</p>
+                        <p><strong>Favorite Character:</strong>Citlali</p>
+                        <p><strong>Motto:</strong> "The journey itself is the reward</p>
+
+                        <a class="btn" href="profile-card.txt" download>Download Profile Card</a>
+                    </div>
+
+         </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Teyvat Fan Hub | Student Project - Not Aaffiliated with HoYovese</p>
+    </footer>
+    
+</body>
+</html>

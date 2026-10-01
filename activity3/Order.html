@@ -1,0 +1,140 @@
+<><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiro Eats - Home</title>
+    <link rel = "stylesheet" href = "styles.css">
+</head>
+<body>
+    
+    <!-- HEADER -->
+     <header>
+        <h1>Kiro's Resto</h1>
+        <p>Japanese Food Delivery</p>
+     </header>
+
+     <!-- NAVIGATION -->
+     <nav>
+        <ul>
+            <li><a href="Index.html" class="active">Home</a></li>
+            <li><a href="Menu.html">Menu</a></li>
+            <li><a href="Order.html">Order</a></li>
+            <li><a href="Profile.html">Profile</a></li>
+        </ul>
+      </nav>
+
+      <!-- MAIN CONTENT -->
+       <main>
+        <section>
+            <h2>Place Your Order</h2>
+
+            <form>
+                <!-- CUSTOMER NAME -->
+                 <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                 </div>
+
+                  <!-- CUSTOMER EMAIL -->
+                 <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                 </div>
+
+                <!-- CUSTOMER PHONE -->
+                 <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter ypur phone number" required>
+                 </div>
+
+                <!-- DELIVERY ADDRESS -->
+                 <div class="form-group">
+                    <label for="address">Delivery Address:</label>
+                    <textarea id="address" name="address" rows="3" placeholder="Enter your delivery address" required></textarea>
+                 </div>
+
+                 <!-- FOOD SELECTION - DROPDOWN -->
+                 <div class="form-group">
+                    <label for="food">Select Food Items:</label>
+                    <select id="food" name="food" required>
+                        <option value="">Choose a dish...</option>
+                        <option value="sushi">Sushi Roll - $12.99</option>
+                        <option value="ramen">Ramen Bowl - $10.99</option>
+                        <option value="tempura">Tempura - $11.99</option>
+                        <option value="teriyaki">Teriyaki Chicken - $13.99</option>
+                        <option value="edamame">Edamame - $5.99</option>
+                    </select>
+                 </div>
+
+                 <!-- QUANTITY - DROPDOWN -->
+                 <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <select id="quantity" name="quantity" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                 </div>
+
+                 <!-- DELIVERY TIME - RADIO BUTTON -->
+                 <div class="form-group">
+                    <label>Delivery Time:</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="delivery_time" value="asap" required>
+                            ASAP (30-45 minutes) 
+                        </label>
+                        <label>
+                            <input type="radio" name="delivery_time" value="1hour">
+                            1 Hour
+                        </label>
+                        <label>
+                            <input type="radio" name="delivery_time" value="2hour">
+                            2 Hours
+                        </label>
+                    </div>
+                 </div>
+
+                 <!-- PAYMENT METHOD - RADIO BUTTON -->
+                  <div class="form-group">
+                    <label>Payment Method:</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="payment" value="cash" required>
+                            Cash on Delivery
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="card">
+                            Credit Card
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="online">
+                            Online Payment
+                        </label>
+
+                        <!-- SPECIAL REQUESTS -->
+                         <div class="form-group">
+                            <label for="requests">Special Requests:</label>
+                            <textarea id="requests" name="requests" rows="3" placeholder="Any special requests?"></textarea>
+                         </div>
+
+                            <!-- SUBMIT BUTTON -->
+                         <div class="form-group">
+                            <button type="submit">Place Order</label>
+                            <button type="reset">Clear Form</label>
+                         </div>
+                     </form>
+            </section>
+</main>
+ <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Kiro Eats. All rights reserved.</p>
+    <p>Contact us: info@kiroeats.com | Phone: 09112233445</p>
+  </footer>
+
+</body>
+</html>
+    

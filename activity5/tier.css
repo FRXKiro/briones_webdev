@@ -1,0 +1,35 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+caption {
+    font-weight: bold;
+    padding: 8px;
+    color: var(--color-primary);
+}
+
+th, td {
+    border: 1px solid #d8cfa9;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+thead th {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f4e3;
+}
+
+tfoot td {
+    background-color: #fff3cd;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.tier-S { color: var(--color-pyro); font-weight: bold;}
+

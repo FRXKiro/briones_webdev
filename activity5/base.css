@@ -1,0 +1,130 @@
+:root {
+    --color-bg: #f4efe2;
+
+    --color-surface: #ffffff;
+
+    --color-primary: #1b2a4a;
+
+    --color-secondary: #d4af37;
+
+    --color-accent: #3fb6a8;
+
+    --color-hydro: #3a7bd5;
+    --color-pyro: #e0603f;
+    --color-dendro: #6aa84f;
+    --color-electro: #8e5fc7;
+    --color-cryo: #9fe3f0;
+    --color-geo: #d99a3d;
+    --color-text: #2b2b2b;
+    --color-text-light: #f4efe2;
+    --radius-lg: 18px;
+    --radius-md: 10px;
+    --radius-round: 50%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Verdana, Arial, sans-serif;
+    color: var(--color-text);
+    line-height: 1.5;
+    background-image: url("image/wallpaper_GI.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: var(--color-primary);
+}
+
+h1, h2, h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: var(--color-primary);
+}
+
+/*-- HEADER -- */
+header {
+    background: linear-gradient(90deg, var(--color-primary)),
+    var(--color-hydro);
+    color: var(--color-text-light);
+    padding: 24px 20px;
+    text-align: center;
+}
+
+header h1 {
+    color: var(--color-secondary);
+    margin: 0 0 6px 0;
+    letter-spacing: 1px;
+}
+
+header p {
+    margin: 0;
+    color: var(--color-text-light);
+    font-style: italic;
+}
+
+/*-- MAIN LAYOUT --*/
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+section {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+aside {
+    background-color: #fff8e1;
+    border-left: 5px solid var(--color-secondary);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    margin-bottom: 25px;
+}
+
+aside h3 {
+    margin-top: 0;
+}
+
+button,
+    btn {
+        background-color: var(--color-accent);
+        color: var(--color-text-light);
+        border: none;
+        padding: 10px 22px;
+        border-radius: var(--radius-lg);
+        cursor: pointer;
+        font-size: 1rem;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    button[type="reset"] {
+        display: inline-block;
+    }
+
+    button:hover,
+     .btn:hover {
+        opacity: 0.85;
+     }
+
+
+     /*-- FOOTER --*/
+     footer {
+        background-color: var(--color-primary);
+        color: var(--color-text-light);
+        text-align: center;
+        padding: 18px;
+        font-size: 0.85rem;
+     }

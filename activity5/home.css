@@ -1,0 +1,46 @@
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.88);
+}
+
+.hero span.element-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-lg);
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+    margin: 4px;
+}
+
+.tag-anemo   { background-color: var(--color-accent); }
+.tag-pyro    { background-color: var(--color-pyro); }
+.tag-hydro   { background-color: var(--color-hydro); }
+.tag-dendro  { background-color: var(--color-dendro); }
+.tag-electro { background-color: var(--color-electro); }
+.tag-cryo    { background-color: var(--color-cryo); color: var(--color-text); }
+.tag-geo     { background-color: var(--color-geo);  color: var(--color-text); }
+
+.hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.landing-lower section,
+.landing-lower aside {
+    background-color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 0;
+}
+
+@media (max-width: 700px) {
+    .landing-lower {
+        grid-template-columns: 1fr;
+    }
+}
