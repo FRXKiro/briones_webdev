@@ -152,18 +152,6 @@ section h2 {
 
 .about-box > img { width: 100%; height: 320px; object-fit: cover; object-position: top; border-radius: 12px; }
 
-.stats { display: flex; gap: 12px; margin-top: 20px; }
-
-.stats div {
-    flex: 1;
-    background-color: rgba(211, 188, 142, 0.15);
-    padding: 12px;
-    text-align: center;
-    border-radius: 10px;
-}
-
-.stats strong { display: block; font-size: 1.8rem; color: var(--gold); }
-
 /* ACTIVITY CARDS */
 .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
 
@@ -232,7 +220,6 @@ footer {
 /* EASTER EGGS */
 .about-box a { color: var(--gold); }
 .egg { color: var(--gold); border-bottom: 1px dotted var(--gold); cursor: pointer; }
-#egg-lang { cursor: pointer; }
 #about-img { cursor: pointer; }
 
 .eggs {
@@ -285,3 +272,68 @@ footer {
     50% { box-shadow: 0 0 40px 15px gold; }
     100% { box-shadow: 0 0 0 0 gold; }
 }
+
+/* ===== EASTER EGG EFFECTS ===== */
+#toast { z-index: 60; }
+
+#flash { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 40; opacity: 0; pointer-events: none; }
+#flash.go { animation: flashfade 0.8s; }
+@keyframes flashfade { 0% { opacity: 0.6; } 100% { opacity: 0; } }
+
+#overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+#overlay.show { opacity: 1; pointer-events: auto; cursor: pointer; }
+#overlay img { max-width: 80vw; max-height: 70vh; border-radius: 20px; border: 4px solid var(--gold); transform: scale(0.2); }
+#overlay.show img { animation: pop 0.6s forwards; }
+#overlay.angry img { border-color: #ff3b30; box-shadow: 0 0 70px #ff3b30; }
+#overlay.happy img { border-color: #ff9ad5; box-shadow: 0 0 70px #ffb3e0; }
+@keyframes pop {
+    0% { transform: scale(0.2) rotate(-12deg); }
+    70% { transform: scale(1.1) rotate(3deg); }
+    100% { transform: scale(1) rotate(0); }
+}
+
+.fall { position: fixed; top: -70px; z-index: 35; font-size: 1.8rem; pointer-events: none; animation: fall linear forwards; }
+img.fall { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+@keyframes fall { to { transform: translateY(115vh) rotate(540deg); } }
+
+.shake main, .shake header { animation: shake 0.7s; }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-14px); } 40% { transform: translateX(14px); }
+    60% { transform: translateX(-10px); } 80% { transform: translateX(10px); }
+}
+
+.resonance main, .resonance header { animation: hue 3s linear; }
+@keyframes hue { to { filter: hue-rotate(360deg); } }
+
+/* Citlali: angry by default, cheerful after 2 clicks */
+.about-box > img { border: 3px solid transparent; transition: opacity 0.35s; }
+#about-img.angry { border-color: #ff3b30; filter: saturate(1.3) contrast(1.1); animation: rage 0.18s infinite alternate; }
+@keyframes rage {
+    from { transform: translate(-1px, 1px); box-shadow: 0 0 12px #ff3b30; }
+    to { transform: translate(1px, -1px); box-shadow: 0 0 34px #ff3b30; }
+}
+#about-img.happy { border-color: #ff9ad5; animation: bounce 1.2s infinite; }
+@keyframes bounce { 50% { transform: translateY(-10px); box-shadow: 0 12px 30px #ffb3e0; } }
+#about.angry .about-box { border-color: #ff3b30; box-shadow: 0 0 25px rgba(255, 59, 48, 0.4); }
+
+body.cheerful {
+    --dark: #fff3fb; --panel: rgba(255, 255, 255, 0.88); --gold: #ff5fa2; --cream: #4a2a5e;
+    background-image: linear-gradient(120deg, #ffd1f0, #c7f0ff, #fff3b0, #d4ffd1, #ffd1f0);
+    background-size: 400% 400%;
+    animation: rainbow 10s linear infinite;
+}
+@keyframes rainbow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+body.cheerful nav, body.cheerful footer { background-color: rgba(255, 255, 255, 0.92); }
+body.cheerful .hero-shade {
+    background: linear-gradient(90deg, rgba(255, 243, 251, 0.9) 5%, rgba(255, 243, 251, 0) 60%),
+                linear-gradient(0deg, rgba(255, 243, 251, 1) 0%, rgba(255, 243, 251, 0) 35%);
+}
+body.cheerful #contact-form input, body.cheerful #contact-form textarea { background-color: #fff; }
+body.cheerful .el, body.cheerful #toast { color: #fff; }
+body.cheerful #toast { background-color: #ff5fa2; }
