@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Dev Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- NAVBAR -->
     <nav>
-        <a href="#home" class="logo">Mark Briones</a>
+        <a href="#home" class="logo" id="logo"><img src="favicon.svg" alt="logo"> Mark Briones</a>
         <button id="menu-btn">Menu</button>
         <ul id="nav-links">
             <li><a href="#home">Home</a></li>
@@ -50,14 +51,36 @@
                 <div>
                     <h2>About</h2>
                     <p>I'm Mark, an IT student learning how to build websites with HTML, CSS and JavaScript.
-                       This page collects the activities I made in class. Every card below opens the activity in a new tab.</p>
+                       I like turning an idea into a page I can actually click and test, and I'm still learning,
+                       so every activity here is one more step forward.</p>
+                    <p>I'm also a big Genshin Impact fan, which is why my second activity is a fan page. When I'm not coding,
+                       you can probably find me somewhere in <a href="https://genshin.hoyoverse.com/en/home" target="_blank" id="egg-link">Teyvat</a>
+                       with <span class="egg" id="egg-paimon">Paimon</span> floating beside me.</p>
                     <div class="stats">
                         <div><strong id="count">0</strong><span>Activities</span></div>
-                        <div><strong>3</strong><span>Languages</span></div>
+                        <div id="egg-lang"><strong>3</strong><span>Languages</span></div>
                         <div><strong>9</strong><span>Characters</span></div>
                     </div>
                 </div>
-                <img src="images/anastasya.jpg" alt="Anastasya">
+                <img id="about-img" src="images/anastasya.jpg" alt="Anastasya">
+            </div>
+
+            <div class="eggs">
+                <h3>Secrets hidden in this page <span id="egg-count">0 / 7</span></h3>
+                <p>Try clicking around. Here are some hints: a link, a floating friend, the stats, the picture, the logo, the keyboard, and a wish.</p>
+
+                <div class="elements">
+                    <button class="el el-anemo">Anemo</button>
+                    <button class="el el-geo">Geo</button>
+                    <button class="el el-electro">Electro</button>
+                    <button class="el el-dendro">Dendro</button>
+                    <button class="el el-hydro">Hydro</button>
+                    <button class="el el-pyro">Pyro</button>
+                    <button class="el el-cryo">Cryo</button>
+                </div>
+
+                <button class="btn" id="wish-btn">Make a Wish</button>
+                <p id="wish-result"></p>
             </div>
         </section>
 
@@ -104,6 +127,8 @@
     <footer>
         <p>&copy; <span id="year"></span> Mark Briones | Student project, not affiliated with HoYoverse</p>
     </footer>
+
+    <div id="toast"></div>
 
     <script src="script.js"></script>
 </body>

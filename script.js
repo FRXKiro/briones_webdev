@@ -88,3 +88,123 @@ form.onsubmit = function (event) {
     messages.appendChild(item);
     form.reset();
 };
+
+// ===== EASTER EGGS =====
+var toast = document.getElementById("toast");
+var toastTimer;
+var eggsFound = {};
+var eggTotal = 7;
+
+function showToast(text) {
+    toast.textContent = text;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+        toast.classList.remove("show");
+    }, 2500);
+}
+
+// Count each egg only once
+function foundEgg(name) {
+    if (eggsFound[name]) {
+        return;
+    }
+    eggsFound[name] = true;
+    var total = Object.keys(eggsFound).length;
+    document.getElementById("egg-count").textContent = total + " / " + eggTotal;
+    if (total == eggTotal) {
+        showToast("All secrets found! You are a true Traveler!");
+    }
+}
+
+// 1. Link to the official Genshin website
+document.getElementById("egg-link").onclick = function () {
+    foundEgg("link");
+};
+
+// 2. Paimon
+document.getElementById("egg-paimon").onclick = function () {
+    showToast("Paimon is NOT emergency food!");
+    foundEgg("paimon");
+};
+
+// 3. Languages stat
+document.getElementById("egg-lang").onclick = function () {
+    showToast("3 languages here, but Teyvat has 7 nations!");
+    foundEgg("languages");
+};
+
+// 4. Click the picture 5 times for a 5-star flash
+var pictureClicks = 0;
+var aboutImg = document.getElementById("about-img");
+
+aboutImg.onclick = function () {
+    pictureClicks = pictureClicks + 1;
+    if (pictureClicks == 5) {
+        pictureClicks = 0;
+        aboutImg.classList.add("flash");
+        setTimeout(function () {
+            aboutImg.classList.remove("flash");
+        }, 800);
+        showToast("5-star! A golden light shines!");
+        foundEgg("picture");
+    }
+};
+
+// 5. Double click the logo
+document.getElementById("logo").ondblclick = function () {
+    showToast("Welcome back, Traveler!");
+    foundEgg("logo");
+};
+
+// 6. Type "paimon" anywhere on the page
+var typed = "";
+document.onkeydown = function (event) {
+    if (event.key.length == 1) {
+        typed = (typed + event.key.toLowerCase()).slice(-6);
+        if (typed == "paimon") {
+            showToast("You called me? Paimon is here!");
+            foundEgg("keyboard");
+        }
+    }
+};
+
+// Element buttons
+var elementLines = {
+    Anemo: "Anemo: the wind goes wherever it wants.",
+    Geo: "Geo: stand strong like a mountain.",
+    Electro: "Electro: lightning never waits.",
+    Dendro: "Dendro: little seeds, big forests.",
+    Hydro: "Hydro: calm water, deep secrets.",
+    Pyro: "Pyro: let the fire burn bright!",
+    Cryo: "Cryo: stay cool, Traveler."
+};
+
+var elButtons = document.querySelectorAll(".el");
+for (var e = 0; e < elButtons.length; e++) {
+    elButtons[e].onclick = function () {
+        showToast(elementLines[this.textContent]);
+    };
+}
+
+// 7. Make a Wish
+var fiveStars = ["Venti", "Zhongli", "Ei", "Nahida", "Furina", "Mavuika", "Columbina"];
+var fourStars = ["Bennett", "Xiangling", "Fischl", "Sucrose"];
+var wishResult = document.getElementById("wish-result");
+
+document.getElementById("wish-btn").onclick = function () {
+    var roll = Math.random();
+    wishResult.classList.remove("gold");
+
+    if (roll < 0.1) {
+        var five = fiveStars[Math.floor(Math.random() * fiveStars.length)];
+        wishResult.textContent = "5 stars: " + five + "!!!";
+        wishResult.classList.add("gold");
+    } else if (roll < 0.4) {
+        var four = fourStars[Math.floor(Math.random() * fourStars.length)];
+        wishResult.textContent = "4 stars: " + four;
+    } else {
+        wishResult.textContent = "3 stars: Another Slingshot... try again!";
+    }
+    foundEgg("wish");
+};

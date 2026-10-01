@@ -224,3 +224,64 @@ footer {
     .thumb { width: 48px; height: 48px; }
     .about-box, .cards { grid-template-columns: 1fr; }
 }
+
+/* LOGO */
+.logo { display: flex; align-items: center; gap: 8px; }
+.logo img { width: 30px; height: 30px; }
+
+/* EASTER EGGS */
+.about-box a { color: var(--gold); }
+.egg { color: var(--gold); border-bottom: 1px dotted var(--gold); cursor: pointer; }
+#egg-lang { cursor: pointer; }
+#about-img { cursor: pointer; }
+
+.eggs {
+    margin-top: 25px;
+    background-color: var(--panel);
+    border: 1px dashed var(--gold);
+    border-radius: 12px;
+    padding: 20px 25px;
+}
+
+.eggs h3 { color: var(--gold); font-size: 1.4rem; margin-bottom: 8px; }
+#egg-count { font-size: 1rem; background: var(--gold); color: var(--dark); padding: 2px 12px; border-radius: 15px; margin-left: 8px; }
+.eggs p { margin-bottom: 12px; }
+
+.elements { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+
+.el { border: none; color: var(--cream); padding: 6px 16px; border-radius: 15px; cursor: pointer; font-size: 0.9rem; }
+.el-anemo { background-color: #3fb6a8; }
+.el-geo { background-color: #d99a3d; }
+.el-electro { background-color: #8e5fc7; }
+.el-dendro { background-color: #6aa84f; }
+.el-hydro { background-color: #3a7bd5; }
+.el-pyro { background-color: #e0603f; }
+.el-cryo { background-color: #5bb8cc; }
+.el:hover { transform: scale(1.08); }
+
+#wish-result { margin-top: 12px; font-size: 1.1rem; min-height: 28px; }
+#wish-result.gold { color: var(--gold); font-weight: bold; }
+
+#toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--gold);
+    color: var(--dark);
+    padding: 10px 24px;
+    border-radius: 25px;
+    z-index: 30;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+#toast.show { opacity: 1; }
+
+.flash { animation: flash 0.8s; }
+@keyframes flash {
+    0% { box-shadow: 0 0 0 0 gold; }
+    50% { box-shadow: 0 0 40px 15px gold; }
+    100% { box-shadow: 0 0 0 0 gold; }
+}
