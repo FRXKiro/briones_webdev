@@ -36,12 +36,12 @@ function tick() {
 
 // ----- Hero: giant name + quote follow the selected character, parallax -----
 var heroInfo = {
-    Venti: "🍃 Anemo · Bow. Freedom, one breeze at a time.",
-    Zhongli: "🪨 Geo · Polearm. Every contract is a promise.",
-    Ei: "⚡ Electro · Polearm. Eternity, one strike at a time.",
-    Nahida: "🌱 Dendro · Catalyst. Wisdom grows like a tree.",
-    Furina: "💧 Hydro · Sword. Every day is a stage.",
-    Mavuika: "🔥 Pyro · Claymore. Burn bright, never back down.",
+    Venti: "🍃 Anemo · Bow. The wind shall lead you onward.",
+    Zhongli: "🪨 Geo · Polearm. Every journey has its final day. Don't rush.",
+    Ei: "⚡ Electro · Polearm. Rainfall alone does not constitute a storm.",
+    Nahida: "🌱 Dendro · Catalyst. Wisdom is not about knowing everything, but knowing what is enough.",
+    Furina: "💧 Hydro · Sword. Justice is not a mere performance...but oh, how divine it is when it is.",
+    Mavuika: "🔥 Pyro · Claymore. Before you become one with flame, be proud of who you are now.",
     Columbina: "🌙 A quiet song in the moonlight.",
     Anastasya: "✨ A special guest of this portfolio."
 };
