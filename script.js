@@ -74,23 +74,11 @@ for (var k = 0; k < thumbs.length; k++) {
 showSlide(0);
 startTimer();
 
-// Contact form: show the message on the page (no server needed)
-var form = document.getElementById("contact-form");
-var messages = document.getElementById("messages");
-
-form.onsubmit = function (event) {
-    event.preventDefault();
-    var item = document.createElement("li");
-    item.textContent = document.getElementById("cname").value + ": " + document.getElementById("cmsg").value;
-    messages.appendChild(item);
-    form.reset();
-};
-
 // ===== EASTER EGGS =====
 var toast = document.getElementById("toast");
 var toastTimer;
 var eggsFound = {};
-var eggTotal = 8;
+var eggTotal = 16;
 
 function showToast(text) {
     toast.textContent = text;
@@ -250,38 +238,6 @@ document.getElementById("logo").ondblclick = function () {
     foundEgg("logo");
 };
 
-// 5. Type "paimon" anywhere, and 8. the Konami code
-var typed = "";
-var konami = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
-var konamiPos = 0;
-
-document.onkeydown = function (event) {
-    var key = event.key.length == 1 ? event.key.toLowerCase() : event.key;
-
-    if (key == konami[konamiPos]) {
-        konamiPos = konamiPos + 1;
-        if (konamiPos == konami.length) {
-            konamiPos = 0;
-            paimonRain(40);
-            flash("rgba(255, 255, 255, 0.8)");
-            showToast("Cheat code! Paimon invasion!");
-            foundEgg("konami");
-        }
-    } else {
-        konamiPos = (key == konami[0]) ? 1 : 0;
-    }
-
-    if (event.key.length == 1) {
-        typed = (typed + key).slice(-6);
-        if (typed == "paimon") {
-            showPicture("images/paimon.jpg", "happy", 3200);
-            emojiRain(["🎈", "🎉", "✨", "⭐"], 45);
-            showToast("You called me? Paimon is here!");
-            foundEgg("keyboard");
-        }
-    }
-};
-
 // 6. Element buttons: each has its own flash and rain, all 7 together start a resonance
 var elementLines = {
     Anemo: "Anemo: the wind goes wherever it wants.",
@@ -326,29 +282,3 @@ for (var e = 0; e < elButtons.length; e++) {
     };
 }
 
-// 7. Make a Wish
-var fiveStars = ["Venti", "Zhongli", "Raiden Shogun", "Nahida", "Furina", "Mavuika", "Columbina", "Skirk", "Sandrone", "Mualani", "Neuvilette", "Arlecchino", "Citlali", "Lauma"];
-var fourStars = ["Bennett", "Xiangling", "Sucrose", "Aino", "Lynette", "Collei", "Iansan", "Alyosha", "Kuki Shinobu", "Noelle", "Charlotte", "Kirara"];
-var wishResult = document.getElementById("wish-result");
-
-document.getElementById("wish-btn").onclick = function () {
-    var roll = Math.random();
-    wishResult.classList.remove("gold");
-
-    if (roll < 0.1) {
-        var five = fiveStars[Math.floor(Math.random() * fiveStars.length)];
-        wishResult.textContent = "5 stars: " + five + "!!!";
-        wishResult.classList.add("gold");
-        flash("rgba(255, 215, 0, 0.8)");
-        emojiRain(["⭐", "✨", "🌟"], 60);
-    } else if (roll < 0.4) {
-        var four = fourStars[Math.floor(Math.random() * fourStars.length)];
-        wishResult.textContent = "4 stars: " + four;
-        flash("rgba(160, 100, 220, 0.5)");
-        emojiRain(["✨"], 15);
-    } else {
-        wishResult.textContent = "3 stars: Yup you guessed it, the legendary Dull Blade... try again!";
-        flash("rgba(80, 140, 255, 0.4)");
-    }
-    foundEgg("wish");
-};

@@ -1,0 +1,106 @@
+/* ===== ROUND 1 EXTRAS ===== */
+header { z-index: 1; }
+main { position: relative; z-index: 1; }
+
+/* scrollbar, button press */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #1b2133; }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 6px; }
+.btn:active { transform: scale(0.94); }
+
+/* glass panels, cursor spotlight, gold corner flourishes */
+.about-box, .card, .eggs {
+    position: relative;
+    backdrop-filter: blur(6px);
+    background-image: radial-gradient(circle 170px at var(--mx, -999px) var(--my, -999px), rgba(255, 255, 255, 0.13), transparent);
+}
+.about-box::before, .card::before, .about-box::after, .card::after {
+    content: ""; position: absolute; width: 20px; height: 20px; z-index: 2; pointer-events: none;
+}
+.about-box::before, .card::before { top: 7px; left: 7px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+.about-box::after, .card::after { bottom: 7px; right: 7px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+
+/* shimmering headings with a star */
+section h2 {
+    background: linear-gradient(90deg, var(--gold) 40%, #fff 50%, var(--gold) 60%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 5s linear infinite;
+}
+section h2::before { content: "\2726  "; -webkit-text-fill-color: var(--gold); }
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+
+/* rarity frames + tilt */
+.card { transition: transform 0.15s, box-shadow 0.3s; border-color: var(--rare, var(--gold)); }
+.card:nth-child(1) { --rare: #a06bd6; }
+.card:nth-child(2) { --rare: #f0c24a; box-shadow: 0 0 18px rgba(240, 194, 74, 0.35); }
+.stars { font-size: 0.9rem; color: var(--rare); margin-left: 6px; }
+
+/* smart navbar */
+nav { transition: transform 0.3s; }
+nav.hide { transform: translateY(-100%); }
+
+/* dot navigator */
+#dots { position: fixed; right: 14px; top: 50%; transform: translateY(-50%); z-index: 20; display: flex; flex-direction: column; gap: 14px; }
+#dots a { width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--gold); display: block; }
+#dots a.on { background: var(--gold); box-shadow: 0 0 10px var(--gold); transform: scale(1.3); }
+
+/* fireflies */
+.firefly { position: fixed; z-index: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); opacity: 0.55; pointer-events: none; animation: drift ease-in-out infinite alternate; }
+@keyframes drift { from { transform: translate(0, 0); } to { transform: translate(60px, -90px); } }
+
+/* Paimon pal */
+#paimon-pal { position: fixed; right: 18px; bottom: 18px; z-index: 45; width: 68px; transition: left 0.7s ease-out, top 0.7s ease-out; }
+#pal-img { width: 68px; height: 68px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); cursor: pointer; display: block; animation: bob 2.2s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(-7px); } }
+#pal-say { position: absolute; bottom: 78px; left: 50%; transform: translateX(-50%); width: 190px; background: var(--cream); color: #2a2a3a; padding: 8px 12px; border-radius: 12px; font-size: 0.85rem; text-align: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+#paimon-pal.talk #pal-say { opacity: 1; }
+
+/* achievement banner */
+#banner { position: fixed; top: -120px; left: 50%; transform: translateX(-50%); z-index: 70; background: var(--panel); border: 1px solid var(--gold); border-radius: 12px; padding: 10px 26px; text-align: center; transition: top 0.4s; }
+#banner.show { top: 76px; }
+#banner strong { display: block; color: var(--gold); font-size: 1.15rem; }
+
+/* gacha */
+#pity { margin-left: 10px; color: var(--gold); }
+#wish-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 55; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.75); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+#wish-modal.show { opacity: 1; pointer-events: auto; cursor: pointer; }
+.wish-card { width: 250px; border-radius: 16px; padding: 12px; text-align: center; color: #fff; animation: pop 0.6s; }
+.wish-card.r5 { background: linear-gradient(160deg, #f6d36b, #b9792a); box-shadow: 0 0 60px #f0c24a; }
+.wish-card.r4 { background: linear-gradient(160deg, #b58cf0, #5b3a9c); box-shadow: 0 0 45px #a06bd6; }
+.wish-card.r3 { background: linear-gradient(160deg, #6f86b8, #34466e); }
+.wish-art { height: 290px; border-radius: 10px; overflow: hidden; background: rgba(0, 0, 0, 0.25); display: flex; align-items: center; justify-content: center; }
+.wish-art img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.wish-art.ph { font-size: 5rem; }
+.wish-stars { margin-top: 8px; letter-spacing: 3px; color: #fff6c9; }
+.wish-name { font-family: Georgia, serif; font-size: 1.3rem; }
+
+/* contact form */
+.hp { display: none; }
+.field { position: relative; }
+.field input, .field textarea { width: 100%; color: #222; }
+.field label { position: absolute; left: 12px; top: 10px; color: #666; pointer-events: none; transition: all 0.2s; font-size: 0.95rem; }
+.field input:focus + label, .field input:not(:placeholder-shown) + label,
+.field textarea:focus + label, .field textarea:not(:placeholder-shown) + label {
+    top: -10px; left: 10px; font-size: 0.75rem; background: var(--gold); color: var(--dark); padding: 0 8px; border-radius: 8px;
+}
+#send-btn.sending { opacity: 0.6; pointer-events: none; animation: fly 0.8s infinite; }
+@keyframes fly { 50% { transform: translateX(18px) rotate(-6deg); } }
+.shake-form { animation: shake 0.5s; }
+#form-status { margin-top: 10px; }
+#form-status.ok { color: #7be08b; }
+#form-status.bad { color: #ff7b6b; }
+#messages li.bottle { animation: dropin 0.9s; }
+@keyframes dropin { 0% { transform: translateY(-70px) rotate(-8deg); opacity: 0; } 60% { transform: translateY(8px); opacity: 1; } 100% { transform: none; } }
+
+body.cheerful #banner, body.cheerful #pal-say { color: #4a2a5e; }
+
+@media (max-width: 750px) { #dots { display: none; } #paimon-pal, #pal-img { width: 52px; height: 52px; } #pal-say { bottom: 62px; } }
+@media (prefers-reduced-motion: reduce) { .firefly, .fall { display: none; } * { animation: none !important; transition: none !important; } }
+
+/* more rarity frames for the new activity cards + weapon pictures */
+.card:nth-child(3) { --rare: #a06bd6; }
+.card:nth-child(4) { --rare: #f0c24a; box-shadow: 0 0 18px rgba(240, 194, 74, 0.35); }
+.wish-art.weapon { background: radial-gradient(circle, #28345c, #0e1424); }
+.wish-art.weapon img { object-fit: contain; }

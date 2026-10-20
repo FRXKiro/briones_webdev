@@ -1,0 +1,111 @@
+/* ===== ROUND 2 ===== */
+/* loader */
+#loader { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200; background: #1b2133; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: #d3bc8e; transition: opacity 0.6s; }
+#loader.done { opacity: 0; pointer-events: none; }
+.ring { width: 70px; height: 70px; border-radius: 50%; background: conic-gradient(#3fb6a8, #d99a3d, #8e5fc7, #6aa84f, #3a7bd5, #e0603f, #5bb8cc, #3fb6a8); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 calc(100% - 9px)); mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 calc(100% - 9px)); animation: spin 1.1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* hero: character select, big name, parallax, typewriter */
+#hero-img { transform: scale(1.07); }
+.hero-text { z-index: 2; }
+.thumbs { z-index: 3; }
+#hero-big { position: absolute; left: 3%; bottom: 4%; z-index: 1; font-family: Georgia, serif; font-size: 12vw; line-height: 1; color: rgba(255, 255, 255, 0.1); white-space: nowrap; pointer-events: none; }
+#hero-quote { font-style: italic; margin-bottom: 8px; }
+.typeline { margin-bottom: 18px; }
+.caret { animation: blink 0.8s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (min-width: 751px) {
+    .thumbs { left: auto; right: 28px; top: 50%; bottom: auto; transform: translateY(-50%); flex-direction: column; flex-wrap: nowrap; align-items: center; padding: 14px 8px; background: rgba(27, 33, 51, 0.55); border: 1px solid var(--gold); border-radius: 40px; }
+    .thumb { width: 54px; height: 54px; }
+}
+
+/* about bento */
+@media (min-width: 900px) {
+    #about { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; align-items: start; }
+    #about .eggs { margin-top: 0; }
+}
+.about-box > div:first-child { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 18px; }
+
+/* sky, tea mode, rain */
+#sky { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; opacity: 0.4; pointer-events: none; transition: opacity 0.6s; }
+body.cheerful #sky, body.tea #sky { opacity: 0; }
+#rain { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 2; pointer-events: none; background: repeating-linear-gradient(105deg, transparent 0 14px, rgba(200, 220, 255, 0.16) 14px 15px), radial-gradient(circle at 50% 100%, rgba(255, 170, 90, 0.25), transparent 60%); animation: rainfall 0.5s linear infinite; }
+body.tea:not(.cheerful) #rain { display: block; }
+@keyframes rainfall { to { background-position: -40px 60px, 0 0; } }
+body.tea:not(.cheerful) { --dark: #2a1810; --panel: rgba(60, 36, 22, 0.88); --gold: #ffb86b; --cream: #f6e3cf; background-image: linear-gradient(rgba(42, 24, 16, 0.9), rgba(42, 24, 16, 0.95)), url("images/wallpaper_GI.jpg"); }
+body.tea:not(.cheerful) nav, body.tea:not(.cheerful) footer { background-color: rgba(42, 24, 16, 0.95); }
+footer p { cursor: pointer; }
+
+/* constellation + timeline */
+.constellation { position: relative; height: 260px; margin-top: 15px; background: var(--panel); border: 1px solid var(--gold); border-radius: 12px; overflow: hidden; }
+.constellation svg { position: absolute; width: 100%; height: 100%; }
+.constellation polyline { fill: none; stroke: var(--gold); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset 2.5s; }
+.constellation.lit polyline { stroke-dashoffset: 0; }
+.star { position: absolute; transform: translate(-50%, -50%) scale(0.4); opacity: 0.3; background: none; border: none; color: var(--cream); cursor: pointer; font-size: 0.9rem; transition: all 0.6s; }
+.star::before { content: "\2726"; display: block; font-size: 2rem; color: var(--gold); text-shadow: 0 0 14px var(--gold); }
+.star.lit { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+.star:hover { transform: translate(-50%, -50%) scale(1.25); }
+#star-info { margin-top: 10px; color: var(--gold); min-height: 26px; }
+.rank-title { color: var(--gold); margin: 22px 0 10px; font-size: 1.4rem; }
+.timeline { list-style: none; border-left: 2px solid var(--gold); margin-left: 8px; }
+.timeline li { position: relative; padding: 6px 0 14px 22px; }
+.timeline li::before { content: ""; position: absolute; left: -8px; top: 12px; width: 14px; height: 14px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+.timeline b { color: var(--gold); margin-right: 8px; }
+
+/* cursor glow + sparks */
+#glow { position: fixed; width: 28px; height: 28px; border: 2px solid var(--gold); border-radius: 50%; z-index: 90; pointer-events: none; transform: translate(-50%, -50%); transition: left 0.08s, top 0.08s; box-shadow: 0 0 12px var(--gold); }
+.spark { position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); z-index: 90; pointer-events: none; animation: spark 0.6s forwards; }
+@keyframes spark { to { opacity: 0; transform: translate(var(--dx, 0), var(--dy, 24px)) scale(0.2); } }
+
+/* live preview */
+#preview { position: fixed; width: 360px; height: 225px; overflow: hidden; border: 2px solid var(--gold); border-radius: 10px; z-index: 60; background: #fff; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+#preview.show { opacity: 1; }
+#preview iframe { width: 1200px; height: 750px; border: 0; transform: scale(0.3); transform-origin: 0 0; }
+
+/* quests, gear, settings, to-top, nav sky button, right-click menu, abyss */
+#quests { position: fixed; left: 14px; top: 90px; z-index: 20; width: 190px; background: var(--panel); border: 1px solid var(--gold); border-radius: 10px; padding: 8px 12px; font-size: 0.8rem; }
+#quests b { color: var(--gold); cursor: pointer; display: block; }
+#quests ul { list-style: none; margin-top: 6px; }
+#quests.min ul { display: none; }
+#quests li::before { content: "\25CB  "; color: var(--gold); }
+#quests li.done { text-decoration: line-through; opacity: 0.6; }
+#quests li.done::before { content: "\2714  "; }
+#gear, #to-top { position: fixed; left: 16px; z-index: 25; width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--gold); background: var(--panel); color: var(--gold); font-size: 1.2rem; cursor: pointer; }
+#gear { bottom: 16px; }
+#to-top { bottom: 66px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+#to-top.show { opacity: 1; pointer-events: auto; }
+#settings { position: fixed; left: 16px; bottom: 66px; z-index: 25; background: var(--panel); border: 1px solid var(--gold); border-radius: 10px; padding: 10px 14px; display: none; font-size: 0.85rem; }
+#settings.open { display: block; }
+#settings b { color: var(--gold); display: block; margin-bottom: 6px; }
+#settings label { display: block; cursor: pointer; }
+#sky-btn { background: none; border: 1px solid var(--gold); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 1rem; }
+#ctx { position: fixed; z-index: 95; display: none; background: var(--panel); border: 1px solid var(--gold); border-radius: 10px; padding: 6px; }
+#ctx button { display: block; width: 100%; text-align: left; background: none; border: none; color: var(--cream); padding: 7px 14px; cursor: pointer; border-radius: 6px; }
+#ctx button:hover { background: var(--gold); color: var(--dark); }
+#abyss { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 80; cursor: none; background: radial-gradient(circle 120px at var(--ax, 50%) var(--ay, 50%), transparent 0, rgba(0, 0, 0, 0.97) 100%); }
+#abyss-msg { display: none; position: fixed; z-index: 79; transform: translate(-50%, -50%); color: #ffd98a; white-space: nowrap; text-shadow: 0 0 12px gold; }
+#abyss.on, #abyss-msg.on { display: block; }
+
+.nofly .firefly { display: none; }
+.nocursor #glow { display: none; }
+.calm .firefly, .calm .fall, .calm #glow, .calm .spark { display: none; }
+.calm *, .calm *::before, .calm *::after { animation: none !important; transition: none !important; }
+
+/* phone: bottom navigation bar */
+@media (max-width: 750px) {
+    #menu-btn, #quests, #dots { display: none; }
+    nav, nav.hide { transform: none !important; }
+    nav ul { display: flex !important; position: fixed; bottom: 0; left: 0; right: 0; width: 100%; flex-direction: row; justify-content: space-around; padding: 6px 4px; background: rgba(27, 33, 51, 0.97); border-top: 1px solid var(--gold); z-index: 25; }
+    nav ul a { padding: 6px 8px; font-size: 0.78rem; }
+    body { padding-bottom: 56px; }
+    #gear { bottom: 68px; }
+    #to-top { bottom: 118px; }
+    #settings { bottom: 118px; }
+    #paimon-pal { bottom: 68px; }
+    #hero-big { font-size: 16vw; }
+    .constellation { height: 220px; }
+}
+
+/* Paimon hops when called from the right-click menu */
+#paimon-pal.hop #pal-img { animation: hop 0.6s; }
+@keyframes hop { 30% { transform: translateY(-26px) scale(1.15); } 60% { transform: translateY(0) scale(0.95); } 100% { transform: none; } }

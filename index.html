@@ -6,8 +6,11 @@
     <title>Web Dev Portfolio</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="extras.css">
+    <link rel="stylesheet" href="extras2.css">
 </head>
 <body>
+    <div id="loader"><div class="ring"></div><p>Loading Teyvat...</p></div>
 
     <!-- NAVBAR -->
     <nav>
@@ -16,6 +19,7 @@
         <ul id="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
             <li><a href="#activities">Activities</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -23,16 +27,18 @@
 
     <!-- HERO: all the characters are picked from the thumbnails -->
     <header id="home">
-        <img id="hero-img" src="images/archons.jpg" alt="">
+        <img id="hero-img" src="images/venti.jpg" alt="">
         <div class="hero-shade"></div>
+        <div id="hero-big"></div>
         <div class="hero-text">
             <p>BSIT Web Development</p>
             <h1>My Portfolio</h1>
-            <p id="hero-name">The Archons</p>
+            <p id="hero-name">Venti</p>
+            <p id="hero-quote"></p>
+            <p class="typeline">&#10022; <span id="type"></span><span class="caret">|</span></p>
             <a class="btn" href="#activities">See my activities</a>
         </div>
         <div class="thumbs">
-            <img class="thumb" src="images/archons.jpg" alt="The Archons">
             <img class="thumb" src="images/venti.jpg" alt="Venti">
             <img class="thumb" src="images/zhongli.jpg" alt="Zhongli">
             <img class="thumb" src="images/ei.jpg" alt="Ei">
@@ -61,8 +67,8 @@
             </div>
 
             <div class="eggs">
-                <h3>Secrets hidden in this page <span id="egg-count">0 / 8</span></h3>
-                <p>Try clicking around. Here are some hints: a link, a floating friend, a grumpy picture, the logo, the keyboard, the seven elements, a wish, and an old cheat code.</p>
+                <h3>Secrets hidden in this page <span id="egg-count">0 / 16</span></h3>
+                <p>Try clicking around. Here are some hints: a link, a floating Paimon you can poke, a grumpy picture, the logo, the seven elements, a wish, the hero characters, the bottom of the page, a message in a bottle, a lights-out hero, a right-click on desktop, and the footer.</p>
 
                 <div class="elements">
                     <button class="el el-anemo">Anemo</button>
@@ -74,9 +80,33 @@
                     <button class="el el-cryo">Cryo</button>
                 </div>
 
-                <button class="btn" id="wish-btn">Make a Wish</button>
+                <button class="btn" id="wish-btn">Make a Wish</button> <span id="pity"></span>
                 <p id="wish-result"></p>
             </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="constellation" id="constellation">
+                <svg viewBox="0 0 100 50" preserveAspectRatio="none"><polyline points="12,38 30,14 50,30 70,12 88,34"/></svg>
+                <button class="star" style="left:12%;top:76%" data-info="HTML: the skeleton of every page I build.">HTML</button>
+                <button class="star" style="left:30%;top:28%" data-info="CSS: colours, layouts and animations.">CSS</button>
+                <button class="star" style="left:50%;top:60%" data-info="JavaScript: what makes this page click back.">JavaScript</button>
+                <button class="star" style="left:70%;top:24%" data-info="Forms and tables: order forms, menus and registration pages.">Forms</button>
+                <button class="star" style="left:88%;top:68%" data-info="Layout: grids, flexbox and phone-friendly pages.">Layout</button>
+            </div>
+            <p id="star-info">Hover or tap a star.</p>
+            <h3 class="rank-title">Adventure Rank</h3>
+            <ol class="timeline">
+                <li><b>AR 1</b> Started BSIT and learned HTML and CSS</li>
+                <li><b>AR 2</b> Midterm Activity 3: Kiro Eats (forms and tables)</li>
+                <li><b>AR 3</b> Midterm Activity 5: Teyvat Fan Hub (layout)</li>
+                <li><b>AR 4</b> Finals Activity 1: JavaScript events</li>
+                <li><b>AR 5</b> Finals Activity 2: JavaScript promises</li>
+                <li><b>AR 6</b> This portfolio, with JavaScript and secrets</li>
+                <li><b>AR 7</b> Next: more activities</li>
+            </ol>
         </section>
 
         <!-- ACTIVITIES -->
@@ -86,20 +116,40 @@
                 <article class="card">
                     <img src="images/ei.jpg" alt="Ei">
                     <div class="card-body">
-                        <h3>Activity 3: Kiro Eats</h3>
+                        <h3>Midterm Activity 3: Kiro Eats <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></h3>
                         <p>A Japanese food delivery site with a menu table, an order form and a profile page.</p>
                         <p class="tags">HTML &middot; CSS &middot; Forms &middot; Tables</p>
-                        <a class="btn" href="activity3/Index.html" target="_blank">Open Activity 3</a>
+                        <a class="btn" href="midterms-act3/" target="_blank">Open Midterm Activity 3</a>
                     </div>
                 </article>
 
                 <article class="card">
                     <img src="images/columbina.jpg" alt="Columbina">
                     <div class="card-body">
-                        <h3>Activity 5: Teyvat Fan Hub</h3>
+                        <h3>Midterm Activity 5: Teyvat Fan Hub <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></h3>
                         <p>A Genshin Impact fan page with a registration form, a tier list and a profile card.</p>
                         <p class="tags">HTML &middot; CSS &middot; Forms &middot; Layout</p>
-                        <a class="btn" href="activity5/home.html" target="_blank">Open Activity 5</a>
+                        <a class="btn" href="midterms-act5/" target="_blank">Open Midterm Activity 5</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img src="images/nahida.jpg" alt="Nahida">
+                    <div class="card-body">
+                        <h3>Finals Activity 1: Event Practice <span class="stars">&#9733;&#9733;&#9733;&#9733;</span></h3>
+                        <p>A JavaScript events practice page: click the photo to rotate it, focus and blur a textbox, and pick a year level.</p>
+                        <p class="tags">HTML &middot; CSS &middot; JavaScript &middot; Events</p>
+                        <a class="btn" href="finals-act1/practice.html" target="_blank">Open Finals Activity 1</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <img src="images/furina.jpg" alt="Furina">
+                    <div class="card-body">
+                        <h3>Finals Activity 2: Promise Demo <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></h3>
+                        <p>A JavaScript promises demo: a chain of timed messages, and a dashboard that loads three parts with Promise.all.</p>
+                        <p class="tags">HTML &middot; JavaScript &middot; Promises &middot; setTimeout</p>
+                        <a class="btn" href="finals-act2/index.html" target="_blank">Open Finals Activity 2</a>
                     </div>
                 </article>
             </div>
@@ -109,12 +159,16 @@
         <!-- CONTACT -->
         <section id="contact">
             <h2>Contact</h2>
-            <p>Leave a message and see it show up below.</p>
-            <form id="contact-form">
-                <input type="text" id="cname" placeholder="Your name" required>
-                <textarea id="cmsg" rows="3" placeholder="Your message" required></textarea>
-                <button type="submit" class="btn">Send</button>
+            <p>Send me a message. It goes straight to my inbox, and your bottle shows up below.</p>
+            <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="contact">
+                <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
+                <div class="field"><input type="text" id="cname" name="name" placeholder=" " required><label for="cname">Your name</label></div>
+                <div class="field"><input type="email" id="cemail" name="email" placeholder=" "><label for="cemail">Your email (optional, so I can reply)</label></div>
+                <div class="field"><textarea id="cmsg" name="message" rows="3" placeholder=" " required></textarea><label for="cmsg">Your message</label></div>
+                <button type="submit" class="btn" id="send-btn">Send &#9992;</button>
             </form>
+            <p id="form-status"></p>
             <ul id="messages"></ul>
         </section>
     </main>
@@ -125,8 +179,12 @@
 
     <div id="flash"></div>
     <div id="overlay"><img id="overlay-img" alt=""></div>
+    <div id="banner"></div>
+    <div id="wish-modal"></div>
     <div id="toast"></div>
 
     <script src="script.js"></script>
+    <script src="extras.js"></script>
+    <script src="extras2.js"></script>
 </body>
 </html>
