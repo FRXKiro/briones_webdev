@@ -164,7 +164,7 @@ document.addEventListener("visibilitychange", function () {
 // ----- Dot navigator -----
 var dots = document.createElement("div");
 dots.id = "dots";
-["home", "about", "skills", "activities", "contact"].forEach(function (id) {
+["home", "about", "skills", "activities", "wish", "contact"].forEach(function (id) {
     var a = document.createElement("a");
     a.href = "#" + id;
     a.title = id.charAt(0).toUpperCase() + id.slice(1);
@@ -440,7 +440,11 @@ function doWish(n) {
 wishBtn.onclick = function () { doWish(1); };
 wish10.onclick = function () { doWish(10); };
 
-// ----- Contact form: sent with Netlify Forms (goes to your email), then a bottle drops in -----
+// ----- Contact form: sent with Web3Forms (works on Vercel, Netlify, anywhere), then a bottle drops in -----
+// 1) Go to https://web3forms.com, type your email, and they email you an Access Key.
+// 2) Paste that key between the quotes below.
+var WEB3FORMS_KEY = "PASTE_YOUR_ACCESS_KEY_HERE";
+
 var form = document.getElementById("contact-form");
 var formStatus = document.getElementById("form-status");
 var messageList = document.getElementById("messages");
@@ -448,17 +452,43 @@ var messageList = document.getElementById("messages");
 form.onsubmit = function (event) {
     event.preventDefault();
     var btn = document.getElementById("send-btn");
-    btn.classList.add("sending");
-    var data = new URLSearchParams(new FormData(form)).toString();
 
-    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: data })
-        .then(function (res) {
-            if (!res.ok) {
+    function fail(text) {
+        formStatus.textContent = text;
+        formStatus.className = "bad";
+        form.classList.add("shake-form");
+        setTimeout(function () { form.classList.remove("shake-form"); }, 600);
+    }
+
+    if (WEB3FORMS_KEY == "PASTE_YOUR_ACCESS_KEY_HERE") {
+        fail("The form is not connected yet: add the Web3Forms access key in extras.js.");
+        return;
+    }
+
+    btn.classList.add("sending");
+    var payload = {
+        access_key: WEB3FORMS_KEY,
+        subject: "New message from your portfolio",
+        from_name: "Portfolio contact form",
+        name: document.getElementById("cname").value,
+        email: document.getElementById("cemail").value,
+        message: document.getElementById("cmsg").value,
+        botcheck: form.elements["botcheck"].checked
+    };
+
+    fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
+    })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            if (!data.success) {
                 throw new Error("failed");
             }
             var li = document.createElement("li");
             li.className = "bottle";
-            li.textContent = "🍾 " + document.getElementById("cname").value + ": " + document.getElementById("cmsg").value;
+            li.textContent = "🍾 " + payload.name + ": " + payload.message;
             messageList.appendChild(li);
             form.reset();
             formStatus.textContent = "Message sent! It's on its way to my inbox.";
@@ -468,10 +498,7 @@ form.onsubmit = function (event) {
             foundEgg("bottle");
         })
         .catch(function () {
-            formStatus.textContent = "Could not send. This form only works on the live Netlify site.";
-            formStatus.className = "bad";
-            form.classList.add("shake-form");
-            setTimeout(function () { form.classList.remove("shake-form"); }, 600);
+            fail("Could not send. Check your internet and try again.");
         })
         .then(function () {
             btn.classList.remove("sending");

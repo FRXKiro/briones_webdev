@@ -3,11 +3,6 @@ eggNames.abyss = "Into the Abyss";
 eggNames.menu = "Paimon's Menu";
 eggNames.tea = "Serenitea Pot";
 
-document.addEventListener("contextmenu", function (event) {
-    if (!canHover) { return; }
-    if (event.target.closest && event.target.closest("input, textarea")) { return; }   // ADD
-    event.preventDefault();
-
 // ----- Page loader (element wheel) -----
 var loader = document.getElementById("loader");
 var loaderGone = false;
@@ -318,6 +313,7 @@ var ctxX = 0, ctxY = 0;
 
 document.addEventListener("contextmenu", function (event) {
     if (!canHover) { return; }
+    if (event.target.closest && event.target.closest("input, textarea")) { return; }   // keep normal paste/copy menu in forms
     event.preventDefault();
     ctxX = event.clientX;
     ctxY = event.clientY;

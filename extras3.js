@@ -240,7 +240,7 @@ $$('.tab').forEach(function (tab) {
   });
 });
 
-// ===== U115 friendlier contact form (works with the Netlify submit in extras.js) =====
+// ===== U115 friendlier contact form (works with the form submit in extras.js) =====
 var cform = $('#contact-form');
 if (cform) {
   var cmsg = $('#cmsg');
@@ -330,6 +330,51 @@ doWish = function (n) {
 };
 wishInfo();
 
+// Wish section buttons -> the same system as the (hidden) old buttons
+function renderResults(items) {
+  var box = $('#w-results');
+  if (!box) { return; }
+  box.innerHTML = '';
+  items.forEach(function (r) {
+    var d = document.createElement('div');
+    d.className = 'w-item' + (r.s == 5 ? ' s5' : '');
+    var img = document.createElement('img');
+    img.alt = r.n;
+    var srcs = ['images/wish/' + slug(r.n) + '.jpg'];
+    if (r.s == 5) { srcs.push('images/' + slug(r.n) + '.jpg'); }
+    var tried = 0;
+    img.onerror = function () {
+      tried++;
+      if (tried < srcs.length) { img.src = srcs[tried]; } else { img.remove(); }
+    };
+    img.src = srcs[0];
+    d.appendChild(img);
+    var nm = document.createElement('div');
+    nm.textContent = r.n;
+    d.appendChild(nm);
+    var em = document.createElement('em');
+    em.textContent = '\u2605'.repeat(r.s);
+    d.appendChild(em);
+    box.appendChild(d);
+  });
+}
+function showWPity() {
+  var p = $('#w-pity');
+  if (p) { p.textContent = wishMode == 'chaos' ? '' : pityBox.textContent; }
+}
+var realShowPity = showPity;
+showPity = function () { realShowPity(); showWPity(); };
+showPity();
+
+var realWish2 = doWish;
+doWish = function (n) {
+  realWish2(n);
+  renderResults(G.hist.slice(0, n));
+  showWPity();
+};
+if ($('#w1')) { $('#w1').addEventListener('click', function () { wishBtn.click(); }); }
+if ($('#w10')) { $('#w10').addEventListener('click', function () { wish10.click(); }); }
+
 // E182 Chaos banner: swaps the pull, keeps the same modal and cards
 var JOKES = ['Mark\'s sleep schedule (never obtained)', 'A slime\'s autograph', 'Half a Mora', 'One (1) Fragile Resin', 'Hilichurl dance lessons'];
 function chaosWish(n) {
@@ -346,6 +391,7 @@ function chaosWish(n) {
   }
   saveG(); renderHist();
   wishResult.textContent = list[0].name;
+  renderResults(list.map(function (r) { return { s: r.star, n: r.name }; }));
   if (n == 1) { showSingle(list[0]); } else { showTen(list); }
   wishInfo();
 }
@@ -366,10 +412,12 @@ $$('#wish-tabs button').forEach(function (b) {
     $$('#wish-tabs button').forEach(function (x) { x.classList.remove('on'); });
     b.classList.add('on');
     var chaos = wishMode == 'chaos';
-    $('#wish-feature').style.display = chaos ? 'none' : '';
-    $('#banner-box').style.display = chaos ? 'none' : '';
+    if ($('#wish-art')) { $('#wish-art').style.display = chaos ? 'none' : ''; }
+    if ($('#wish-feature')) { $('#wish-feature').style.display = chaos ? 'none' : ''; }
+    if ($('#banner-box')) { $('#banner-box').style.display = chaos ? 'none' : ''; }
     $('#chaos-art').style.display = chaos ? '' : 'none';
     $('#pity').style.visibility = chaos ? 'hidden' : '';
+    showWPity();
   });
 });
 // phone bottom sheet
