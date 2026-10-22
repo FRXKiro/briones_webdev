@@ -83,7 +83,11 @@ var OLD = [
   { id: 'poke',     hint: 'Poke the floating Paimon.' },
   { id: 'bottle',   hint: 'Send a message in a bottle.' }
 ];
-var UNKNOWN_HINTS = ['A hero with the lights out.', 'A right-click on desktop.', 'Something in the footer.'];
+var UNKNOWN = [
+  { id: 'abyss', hint: 'A hero with the lights out.' },
+  { id: 'menu',  hint: 'A right-click on desktop.' },
+  { id: 'tea',   hint: 'Something in the footer.' }
+];
 var NEW = [
   { id: 'dizzy',    name: 'Dizzy Logo',            hint: 'The logo does not like fast fingers.', count: true },
   { id: 'cursed',   name: 'Cursed Comic Sans',     hint: 'One section title has a cursed side.', count: true },
@@ -152,7 +156,7 @@ function renderCodex() {
     return found ? '<li class="got">' + name + '</li>' : '<li>???<small>' + hint + '</small></li>';
   }
   OLD.forEach(function (s) { html += chip(eggsFound[s.id], eggNames[s.id] || s.id, s.hint); });
-  UNKNOWN_HINTS.forEach(function (h, i) { html += chip(i < extra.length, extra[i] ? (eggNames[extra[i]] || extra[i]) : '', h); });
+  UNKNOWN.forEach(function (s) { html += chip(eggsFound[s.id], eggNames[s.id], s.hint); });
   NEW.forEach(function (s) { html += chip(isFound(s.id), s.name, s.hint); });
   list.innerHTML = html;
   var c = $('#codex-count');
@@ -165,6 +169,7 @@ if (hintBtn) {
     var left = [];
     OLD.forEach(function (s) { if (!eggsFound[s.id]) { left.push(s.hint); } });
     NEW.forEach(function (s) { if (s.count && !eggsFound[s.id]) { left.push(s.hint); } });
+    UNKNOWN.forEach(function (s) { if (!eggsFound[s.id]) { left.push(s.hint); } });
     if (left.length == 0) { paimonSay('You found everything! Paimon is proud.', 2); return; }
     paimonSay('Hmm... ' + rand(left), 2, 5000);
   });
