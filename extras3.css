@@ -9,8 +9,11 @@
 }
 
 /* U116 lite mode */
-.lite * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; animation-duration: .01s !important; transition-duration: .01s !important; }
-.lite canvas { display: none !important; }
+.lite *, .lite *::before, .lite *::after {
+  backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important;
+}
 
 /* helpers */
 .x3-hide { display: none !important; }
@@ -147,3 +150,30 @@ footer .foot a, footer .foot button { color: inherit; background: none; border: 
 .x3-credits .roll small { opacity: .7; }
 .x3-credits .skip-note { position: absolute; bottom: 10px; right: 14px; opacity: .6; }
 @keyframes x3roll { to { top: -120%; } }
+
+/* ===== fixes ===== */
+footer { position: relative; z-index: 1; }              /* sky/rain overlays were tinting the footer */
+
+#settings { bottom: 116px; }                            /* no longer covers the back-to-top button */
+@media (max-width: 750px) { #settings { bottom: 168px; } }
+
+@media (prefers-reduced-motion: reduce) { #overlay img { transform: none; } }  /* popup was stuck at 20% size */
+
+/* hard-pity glow: was an outer shadow on a full-screen element, so it never showed */
+#wish-modal.x3-rainbow { animation: x3rainbowIn 2.4s; }
+@keyframes x3rainbowIn {
+  0%   { box-shadow: inset 0 0 140px 30px #f33; }
+  20%  { box-shadow: inset 0 0 140px 30px #fa0; }
+  40%  { box-shadow: inset 0 0 140px 30px #3c3; }
+  60%  { box-shadow: inset 0 0 140px 30px #39f; }
+  80%  { box-shadow: inset 0 0 140px 30px #a3f; }
+  100% { box-shadow: inset 0 0 0 0 #fff; }
+}
+
+/* phones: wish results were hidden behind the bottom sheet (z-index 8500) */
+@media (max-width: 700px) {
+  #wish-modal { z-index: 8600; }
+  .fall { z-index: 8650; }
+  #flash { z-index: 8700; }
+  #toast, #banner { z-index: 9100; }
+}
