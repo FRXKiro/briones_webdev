@@ -187,3 +187,7 @@ footer { position: relative; z-index: 1; }              /* sky/rain overlays wer
 #flash { z-index: 9250; }
 #toast, #banner { z-index: 9300; }
 #banner.show { top: 12px; }
+
+/* pull screen: make sure nothing can leave it invisible or unclickable */
+#wish-modal.show { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+#w-last { min-height: 1.5em; font-weight: 700; }

@@ -281,6 +281,10 @@ function flyPigeon() {
 // ===== U84 Wish section: the OLD gacha now lives here (one system) =====
 // Flins and Arlecchino join the featured banners (pictures: images/wish/flins.jpg and arlecchino.jpg)
 ['Flins', 'Arlecchino'].forEach(function (n) { if (limited5.indexOf(n) == -1) { limited5.push(n); } });
+// repair saved wish data from older versions so a pull can never crash on it
+G.p5 = +G.p5 || 0; G.p4 = +G.p4 || 0; G.total = +G.total || 0;
+if (!Array.isArray(G.hist)) { G.hist = []; }
+if (!(G.banner >= 0 && G.banner < limited5.length)) { G.banner = limited5.indexOf('Flins'); }
 if (!load('wishInit', 0)) {
   G.banner = limited5.indexOf('Flins');
   saveG();
@@ -391,8 +395,18 @@ doWish = function (n) {
   renderResults(G.hist.slice(0, n));
   showWPity();
 };
-if ($('#w1')) { $('#w1').addEventListener('click', function () { wishBtn.click(); }); }
-if ($('#w10')) { $('#w10').addEventListener('click', function () { wish10.click(); }); }
+function safeWish(n) {
+  var out = $('#w-last');
+  try {
+    doWish(n);
+    if (out) { out.textContent = wishResult.textContent; }
+  } catch (err) {
+    if (out) { out.textContent = 'Wish error: ' + err.message; }
+    if (window.console) { console.error(err); }
+  }
+}
+if ($('#w1')) { $('#w1').addEventListener('click', function () { safeWish(1); }); }
+if ($('#w10')) { $('#w10').addEventListener('click', function () { safeWish(10); }); }
 
 // phone bottom sheet
 if ($('#wish-open')) {

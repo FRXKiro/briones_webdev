@@ -238,7 +238,7 @@ for (var f = 0; f < 22; f++) {
 
 // ----- Gacha wish: featured banner, 50/50, pity up to 90, x10 pulls -----
 // Pictures: images/wish/<name>.jpg (lowercase, hyphens, no apostrophes)
-var limited5 = ["Venti", "Zhongli", "Ei", "Nahida", "Furina", "Mavuika", "Columbina", "Citlali", "Ganyu", "Linnea", "Skirk", "Wanderer"];
+var limited5 = ["Venti", "Zhongli", "Ei", "Nahida", "Furina", "Mavuika", "Columbina", "Citlali", "Ganyu", "Linnea", "Skirk", "Wanderer", "Flins", "Arlecchino"];
 var standard5 = ["Dehya", "Jean", "Mona", "Qiqi", "Tighnari", "Yumemizuki Mizuki"];
 var fourChars = [["Alyosha", "✨"], ["Bennett", "🔥"], ["Chevreuse", "🔥"], ["Collei", "🌱"], ["Jahoda", "✨"], ["Kujou Sara", "⚡"], ["Ningguang", "💎"], ["Ororon", "⚡"]];
 var fourWeapons = [["Dragon's Bane", "🔱"], ["Favonius Sword", "⚔️"], ["Rainslasher", "🗡️"], ["The Stringless", "🏹"], ["Wine and Song", "📖"]];
@@ -250,6 +250,10 @@ try {
     var gSaved = JSON.parse(localStorage.getItem("gacha"));
     if (gSaved && gSaved.hist) { G = gSaved; }
 } catch (err) {}
+// a saved banner position that no longer exists must never crash the page
+G.p5 = +G.p5 || 0; G.p4 = +G.p4 || 0; G.total = +G.total || 0;
+if (!Array.isArray(G.hist)) { G.hist = []; }
+if (!(G.banner >= 0 && G.banner < limited5.length)) { G.banner = 0; }
 
 function slug(name) { return name.toLowerCase().replace(/'/g, "").replace(/ /g, "-"); }
 function saveG() { try { localStorage.setItem("gacha", JSON.stringify(G)); } catch (err) {} }
