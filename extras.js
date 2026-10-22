@@ -447,7 +447,7 @@ wish10.onclick = function () { doWish(10); };
 // ----- Contact form: sent with Web3Forms (works on Vercel, Netlify, anywhere), then a bottle drops in -----
 // 1) Go to https://web3forms.com, type your email, and they email you an Access Key.
 // 2) Paste that key between the quotes below.
-var WEB3FORMS_KEY = "PASTE_YOUR_ACCESS_KEY_HERE";
+var WEB3FORMS_KEY = "c0d42911-4153-4fd0-b429-f01d7486ce54";
 
 var form = document.getElementById("contact-form");
 var formStatus = document.getElementById("form-status");
