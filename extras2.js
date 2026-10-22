@@ -3,6 +3,11 @@ eggNames.abyss = "Into the Abyss";
 eggNames.menu = "Paimon's Menu";
 eggNames.tea = "Serenitea Pot";
 
+document.addEventListener("contextmenu", function (event) {
+    if (!canHover) { return; }
+    if (event.target.closest && event.target.closest("input, textarea")) { return; }   // ADD
+    event.preventDefault();
+
 // ----- Page loader (element wheel) -----
 var loader = document.getElementById("loader");
 var loaderGone = false;
@@ -171,6 +176,7 @@ var quests = document.createElement("div");
 quests.id = "quests";
 quests.innerHTML = "<b>Daily Commissions</b><ul>" + Object.keys(questNames).map(function (k) { return '<li id="q-' + k + '">' + questNames[k] + "</li>"; }).join("") + "</ul>";
 document.body.appendChild(quests);
+if (window.innerWidth < 1400) { quests.classList.add("min"); }
 quests.querySelector("b").onclick = function () { quests.classList.toggle("min"); };
 
 function questDoneNow(k) {
@@ -241,7 +247,10 @@ function toggleTea() {
     showToast(on ? "Welcome to the Serenitea Pot..." : "Back to Teyvat!");
     if (on) { say("So cozy! Paimon loves the rain!", 3500); foundEgg("tea"); }
 }
-document.querySelector("footer p").onclick = toggleTea;
+document.querySelector("footer p").onclick = function (event) {
+    if (event.target.closest && event.target.closest("[data-secret]")) { return; }
+    toggleTea();
+};
 
 // ----- Abyss flashlight: click the hero background 10 times -----
 var abyss = document.createElement("div");
