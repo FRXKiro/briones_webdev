@@ -37,7 +37,7 @@ function tick() {
 // ----- Hero: giant name + quote follow the selected character, parallax -----
 var heroInfo = {
     Venti: "🍃 Anemo · Bow. The wind shall lead you onward.",
-    Zhongli: "🪨 Geo · Polearm. Every journey has its final day. Don't rush.",
+    Zhongli: "⛰️ Geo · Polearm. Every journey has its final day. Don't rush.",
     Ei: "⚡ Electro · Polearm. Rainfall alone does not constitute a storm.",
     Nahida: "🌱 Dendro · Catalyst. Wisdom is not about knowing everything, but knowing what is enough.",
     Furina: "💧 Hydro · Sword. Justice is not a mere performance...but oh, how divine it is when it is.",
