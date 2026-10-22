@@ -269,10 +269,16 @@ abyss.onclick = function (event) {
         foundEgg("abyss");
     }
 };
-abyss.ondblclick = function () {
+var abyssLeaveTimer;
+function leaveAbyss() {
+    clearTimeout(abyssLeaveTimer);
     abyss.classList.remove("on");
     abyssMsg.classList.remove("on");
-};
+}
+abyss.ondblclick = leaveAbyss;
+document.addEventListener("keydown", function (event) {
+    if (event.key == "Escape") { leaveAbyss(); }
+});
 
 var abyssClicks = 0;
 var abyssTimer;
@@ -288,6 +294,7 @@ heroBox.addEventListener("click", function (event) {
         abyssMsg.style.top = (20 + Math.random() * 55) + "vh";
         abyssMsg.classList.add("on");
         abyss.classList.add("on");
+        abyssLeaveTimer = setTimeout(leaveAbyss, 45000);
         moveLight(window.innerWidth / 2, window.innerHeight / 2);
         showToast("The lights went out... find the hidden message. (double-click to leave)");
     }
