@@ -177,15 +177,12 @@ with <span class="egg" id="egg-paimon">Paimon</span> floating beside me.</p>
 <button class="btn" id="wish-open">Open the Wish screen</button>
 <div id="wish-card">
 <button class="btn" id="wish-close">Close</button>
-<div id="wish-tabs">
-<button class="on" data-b="main">Main Banner</button>
-<button data-b="chaos">Chaos Banner</button>
-</div>
 <div class="wish-art" id="wish-art">
-<figure><img src="images/wish/flins.jpg" alt="Flins"><figcaption>Flins</figcaption></figure>
-<figure><img src="images/wish/arlecchino.jpg" alt="Arlecchino"><figcaption>Arlecchino</figcaption></figure>
+<button class="b-arrow" id="bp-prev" type="button" aria-label="Previous featured character">&#9664;</button>
+<figure><img id="wish-feature" src="images/wish/flins.jpg" alt="Flins"><figcaption id="wish-feature-name">Flins</figcaption><small>Featured 5&#9733; (win the 50/50 to get this character)</small></figure>
+<button class="b-arrow" id="bp-next" type="button" aria-label="Next featured character">&#9654;</button>
 </div>
-<div class="wish-art" id="chaos-art" style="display:none">Featured 5-star: Paimon<br>(she is not for adoption)</div>
+<div id="banner-thumbs" aria-label="Choose the featured character"></div>
 <p id="luck"></p>
 <div class="wish-btns">
 <button class="btn" id="w1">Wish x1</button>

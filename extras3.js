@@ -101,7 +101,6 @@ var NEW = [
   { id: 'grass',    name: 'Touch Grass',           hint: 'Keep clicking. Even more.', count: true },
   { id: 'eclipse',  name: 'Eclipse',               hint: 'The sun and moon button has a limit.', count: true },
   { id: 'rainbow',  name: 'Rainbow Wish',          hint: 'Hard pity looks different.', count: true },
-  { id: 'chaos',    name: 'Chaos Banner',          hint: 'Pull the wrong Paimon.', count: true },
   { id: 'pigeon',   name: 'Pigeon Mail',           hint: 'Some letters get a special courier.', count: false },
   { id: 'cookie',   name: 'Sweet Madame Cookies',  hint: 'A banner shows up once.', count: false },
   { id: 'ad',       name: 'Runaway Ad',            hint: 'A pop-up that is hard to close.', count: false },
@@ -287,17 +286,37 @@ if (!load('wishInit', 0)) {
   saveG();
   save('wishInit', 1);
 }
-var wishMode = 'main';
 var sawHard = false;
 
-// big art follows the featured banner
+// big featured picture + picker: change the featured 5-star any time (winning the 50/50 gives this character)
+var thumbBox = $('#banner-thumbs');
+if (thumbBox) {
+  limited5.forEach(function (n, i) {
+    var tb = document.createElement('button');
+    tb.type = 'button';
+    tb.className = 'bt';
+    tb.title = n;
+    tb.setAttribute('aria-label', 'Feature ' + n);
+    var im = document.createElement('img');
+    im.src = 'images/wish/' + slug(n) + '.jpg';
+    im.alt = '';
+    tb.appendChild(im);
+    tb.addEventListener('click', function () { G.banner = i; saveG(); drawBanner(); });
+    thumbBox.appendChild(tb);
+  });
+}
 var realDraw = drawBanner;
 drawBanner = function () {
   realDraw();
+  var n = limited5[G.banner];
   var big = $('#wish-feature');
-  if (big) { big.style.display = ''; big.src = 'images/wish/' + slug(limited5[G.banner]) + '.jpg'; }
+  if (big) { big.src = 'images/wish/' + slug(n) + '.jpg'; big.alt = n; }
+  if ($('#wish-feature-name')) { $('#wish-feature-name').textContent = n; }
+  $$('#banner-thumbs .bt').forEach(function (t, i) { t.classList.toggle('on', i == G.banner); });
 };
 drawBanner();
+if ($('#bp-prev')) { $('#bp-prev').addEventListener('click', function () { G.banner = (G.banner + limited5.length - 1) % limited5.length; saveG(); drawBanner(); }); }
+if ($('#bp-next')) { $('#bp-next').addEventListener('click', function () { G.banner = (G.banner + 1) % limited5.length; saveG(); drawBanner(); }); }
 
 // rainbow on hard pity
 var realPull = pullOne;
@@ -360,7 +379,7 @@ function renderResults(items) {
 }
 function showWPity() {
   var p = $('#w-pity');
-  if (p) { p.textContent = wishMode == 'chaos' ? '' : pityBox.textContent; }
+  if (p) { p.textContent = pityBox.textContent; }
 }
 var realShowPity = showPity;
 showPity = function () { realShowPity(); showWPity(); };
@@ -375,51 +394,6 @@ doWish = function (n) {
 if ($('#w1')) { $('#w1').addEventListener('click', function () { wishBtn.click(); }); }
 if ($('#w10')) { $('#w10').addEventListener('click', function () { wish10.click(); }); }
 
-// E182 Chaos banner: swaps the pull, keeps the same modal and cards
-var JOKES = ['Mark\'s sleep schedule (never obtained)', 'A slime\'s autograph', 'Half a Mora', 'One (1) Fragile Resin', 'Hilichurl dance lessons'];
-function chaosWish(n) {
-  var list = [];
-  for (var i = 0; i < n; i++) {
-    G.total++;
-    if (Math.random() < 0.12) {
-      list.push({ star: 5, name: 'Sweet Madame', emoji: '\u2605', weapon: false, art: ['x'] });
-      showToast('Paimon is not available for adoption.');
-      findSecret('chaos');
-    } else {
-      list.push({ star: 3, name: rand(JOKES), emoji: '?', weapon: true, art: ['x'] });
-    }
-  }
-  saveG(); renderHist();
-  wishResult.textContent = list[0].name;
-  renderResults(list.map(function (r) { return { s: r.star, n: r.name }; }));
-  if (n == 1) { showSingle(list[0]); } else { showTen(list); }
-  wishInfo();
-}
-function chaosGuard(btn, n) {
-  if (!btn) { return; }
-  btn.addEventListener('click', function (e) {
-    if (wishMode != 'chaos') { return; }
-    e.stopImmediatePropagation();
-    chaosWish(n);
-  }, true);
-}
-chaosGuard(wishBtn, 1);
-chaosGuard(wish10, 10);
-
-$$('#wish-tabs button').forEach(function (b) {
-  b.addEventListener('click', function () {
-    wishMode = b.getAttribute('data-b');
-    $$('#wish-tabs button').forEach(function (x) { x.classList.remove('on'); });
-    b.classList.add('on');
-    var chaos = wishMode == 'chaos';
-    if ($('#wish-art')) { $('#wish-art').style.display = chaos ? 'none' : ''; }
-    if ($('#wish-feature')) { $('#wish-feature').style.display = chaos ? 'none' : ''; }
-    if ($('#banner-box')) { $('#banner-box').style.display = chaos ? 'none' : ''; }
-    $('#chaos-art').style.display = chaos ? '' : 'none';
-    $('#pity').style.visibility = chaos ? 'hidden' : '';
-    showWPity();
-  });
-});
 // phone bottom sheet
 if ($('#wish-open')) {
   $('#wish-open').addEventListener('click', function () { $('#wish-card').classList.add('open'); });
