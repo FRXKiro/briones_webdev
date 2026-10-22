@@ -113,7 +113,7 @@ var heroTheme = {
     Furina: "#3a7bd5", Mavuika: "#e0603f", Columbina: "#b9a7e8", Anastasya: "#f08fb0"
 };
 var heroFx = {
-    Venti: ["🍃", "🪶"], Zhongli: ["🪨", "💛"], Ei: ["⚡", "💜"], Nahida: ["🌿", "🌱"], Furina: ["💧", "👏"], Mavuika: ["🔥", "❤️"]
+    Venti: ["🍃", "🪶"], Zhongli: ["⛰️", "💛"], Ei: ["⚡", "💜"], Nahida: ["🌿", "🌱"], Furina: ["💧", "👏"], Mavuika: ["🔥", "❤️"]
 };
 
 for (var t = 0; t < thumbs.length; t++) {
