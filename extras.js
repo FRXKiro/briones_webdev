@@ -236,80 +236,209 @@ for (var f = 0; f < 22; f++) {
     document.body.appendChild(fly);
 }
 
-// ----- Gacha wish -----
-// Pictures live in images/wish/<name>.jpg (spaces become hyphens). 5-star heroes without one fall back to images/<name>.jpg
-var fiveStars = ["Venti", "Zhongli", "Ei", "Nahida", "Furina", "Mavuika", "Columbina", "Citlali", "Ganyu", "Linnea", "Skirk", "Wanderer"];
-var fourStars = [["Alyosha", "✨"], ["Bennett", "🔥"], ["Chevreuse", "🔥"], ["Collei", "🌱"], ["Jahoda", "✨"], ["Kujou Sara", "⚡"], ["Ningguang", "💎"], ["Ororon", "⚡"]];
-var threeStars = [["Twin Nephrite", "🔮"], ["Recurve Bow", "🏹"], ["Fillet Blade", "⚔️"], ["Halberd", "🔱"], ["Skyrider Greatsword", "🗡️"]];
-var pity = 0;
-try { pity = parseInt(localStorage.getItem("pity")) || 0; } catch (err) { pity = 0; }
+// ----- Gacha wish: featured banner, 50/50, pity up to 90, x10 pulls -----
+// Pictures: images/wish/<name>.jpg (lowercase, hyphens, no apostrophes)
+var limited5 = ["Venti", "Zhongli", "Ei", "Nahida", "Furina", "Mavuika", "Columbina", "Citlali", "Ganyu", "Linnea", "Skirk", "Wanderer"];
+var standard5 = ["Dehya", "Jean", "Mona", "Qiqi", "Tighnari", "Yumemizuki Mizuki"];
+var fourChars = [["Alyosha", "✨"], ["Bennett", "🔥"], ["Chevreuse", "🔥"], ["Collei", "🌱"], ["Jahoda", "✨"], ["Kujou Sara", "⚡"], ["Ningguang", "💎"], ["Ororon", "⚡"]];
+var fourWeapons = [["Dragon's Bane", "🔱"], ["Favonius Sword", "⚔️"], ["Rainslasher", "🗡️"], ["The Stringless", "🏹"], ["Wine and Song", "📖"]];
+var threeWeapons = [["Fillet Blade", "⚔️"], ["Halberd", "🔱"], ["Recurve Bow", "🏹"], ["Sharpshooter's Oath", "🏹"], ["Skyrider Greatsword", "🗡️"], ["Twin Nephrite", "🔮"]];
+var oneWeapons = [["Apprentice's Notes", "📖"], ["Beginner's Protector", "🔱"], ["Dull Blade", "⚔️"], ["Hunter's Bow", "🏹"], ["Waster Greatsword", "🗡️"]];
+
+var G = { p5: 0, p4: 0, guar: false, total: 0, banner: 0, hist: [] };
+try {
+    var gSaved = JSON.parse(localStorage.getItem("gacha"));
+    if (gSaved && gSaved.hist) { G = gSaved; }
+} catch (err) {}
+
+function slug(name) { return name.toLowerCase().replace(/'/g, "").replace(/ /g, "-"); }
+function saveG() { try { localStorage.setItem("gacha", JSON.stringify(G)); } catch (err) {} }
+
+var wishBtn = document.getElementById("wish-btn");
 var pityBox = document.getElementById("pity");
 var wishModal = document.getElementById("wish-modal");
+var wishResult = document.getElementById("wish-result");
 
-function slug(name) {
-    return name.toLowerCase().replace(/ /g, "-");
+// banner switcher + x10 button + tools (built here so index.html stays the same)
+wishBtn.textContent = "Wish ×1";
+var bannerBox = document.createElement("div");
+bannerBox.id = "banner-box";
+bannerBox.innerHTML = '<button class="b-arrow" id="b-prev">◀</button><div id="b-card"><img id="b-img" alt=""><div><small>Featured 5★ (50/50)</small><strong id="b-name"></strong></div></div><button class="b-arrow" id="b-next">▶</button>';
+wishBtn.parentNode.insertBefore(bannerBox, wishBtn);
+var wish10 = document.createElement("button");
+wish10.className = "btn";
+wish10.id = "wish10-btn";
+wish10.textContent = "Wish ×10";
+wishBtn.insertAdjacentElement("afterend", wish10);
+var tools = document.createElement("div");
+tools.id = "wish-tools";
+tools.innerHTML = '<button class="mini-btn" id="hist-btn">History</button><button class="mini-btn" id="reset-btn">Reset pity</button><div id="wish-history"></div>';
+wishResult.insertAdjacentElement("afterend", tools);
+var histBox = document.getElementById("wish-history");
+
+function drawBanner() {
+    var n = limited5[G.banner];
+    document.getElementById("b-name").textContent = n;
+    document.getElementById("b-img").src = "images/wish/" + slug(n) + ".jpg";
 }
-
 function showPity() {
-    pityBox.textContent = "Pity: " + pity + " / 20";
+    pityBox.textContent = "5★ pity: " + G.p5 + " / 90  ·  4★: " + G.p4 + " / 10" + (G.guar ? "  ·  Guaranteed featured!" : "");
 }
-showPity();
+function renderHist() {
+    histBox.innerHTML = "";
+    G.hist.forEach(function (h) {
+        var chip = document.createElement("span");
+        chip.className = "chip r" + h.s;
+        chip.textContent = h.s + "★ " + h.n;
+        histBox.appendChild(chip);
+    });
+}
+document.getElementById("b-prev").onclick = function () { G.banner = (G.banner + limited5.length - 1) % limited5.length; saveG(); drawBanner(); };
+document.getElementById("b-next").onclick = function () { G.banner = (G.banner + 1) % limited5.length; saveG(); drawBanner(); };
+document.getElementById("hist-btn").onclick = function () { histBox.classList.toggle("open"); };
+document.getElementById("reset-btn").onclick = function () {
+    G = { p5: 0, p4: 0, guar: false, total: 0, banner: G.banner, hist: [] };
+    saveG(); showPity(); renderHist();
+    showToast("Pity reset!");
+};
+drawBanner(); showPity(); renderHist();
 
-function openWish(star, name, emoji, arts) {
-    var rar = star == 5 ? "r5" : star == 4 ? "r4" : "r3";
-    wishModal.innerHTML = '<div class="wish-card ' + rar + '"><div class="wish-art"></div><div class="wish-stars">' + "★".repeat(star) + '</div><div class="wish-name">' + name + '</div><small>click to close</small></div>';
-    var box = wishModal.querySelector(".wish-art");
-    if (star == 3) {
-        box.classList.add("weapon");
+// one pull: real-style rates, soft pity from 74, hard pity 90, 50/50 with guarantee, 4-star every 10
+function pullOne() {
+    G.p5++; G.p4++; G.total++;
+    var rate5 = G.p5 >= 90 ? 1 : G.p5 >= 74 ? 0.006 + (G.p5 - 73) * 0.06 : 0.006;
+    var r, c;
+    if (Math.random() < rate5) {
+        var win = G.guar || Math.random() < 0.5;
+        r = { star: 5, name: win ? limited5[G.banner] : pick(standard5), emoji: "✨", win: win };
+        G.guar = !win; G.p5 = 0; G.p4 = 0;
+    } else if (G.p4 >= 10 || Math.random() < 0.051) {
+        G.p4 = 0;
+        c = Math.random() < 0.5 ? pick(fourChars) : pick(fourWeapons);
+        r = { star: 4, name: c[0], emoji: c[1], weapon: fourWeapons.indexOf(c) > -1 };
+    } else if (Math.random() < 0.2) {
+        c = pick(oneWeapons);
+        r = { star: 1, name: c[0], emoji: c[1], weapon: true };
+    } else {
+        c = pick(threeWeapons);
+        r = { star: 3, name: c[0], emoji: c[1], weapon: true };
     }
+    r.art = ["images/wish/" + slug(r.name) + ".jpg"];
+    if (r.star == 5) { r.art.push("images/" + slug(r.name) + ".jpg"); }
+    G.hist.unshift({ s: r.star, n: r.name });
+    G.hist = G.hist.slice(0, 30);
+    return r;
+}
+
+function makeCard(r, mini) {
+    var d = document.createElement("div");
+    d.className = (mini ? "mini " : "wish-card ") + "r" + r.star;
+    var art = document.createElement("div");
+    art.className = "wish-art" + (r.weapon ? " weapon" : "");
     var img = document.createElement("img");
     var tried = 0;
-    img.alt = name;
+    img.alt = r.name;
     img.onerror = function () {
         tried = tried + 1;
-        if (tried < arts.length) {
-            img.src = arts[tried];
-            return;
-        }
-        box.textContent = emoji || "✨";
-        box.classList.add("ph");
+        if (tried < r.art.length) { img.src = r.art[tried]; return; }
+        art.textContent = r.emoji || "✨";
+        art.classList.add("ph");
     };
-    img.src = arts[0];
-    box.appendChild(img);
-    wishModal.className = "show";
-    flash(star == 5 ? "rgba(255, 215, 0, 0.8)" : star == 4 ? "rgba(160, 100, 220, 0.5)" : "rgba(80, 140, 255, 0.4)");
-    if (star == 5) {
-        emojiRain(["⭐", "✨", "🌟"], 60);
-    } else if (star == 4) {
-        emojiRain(["✨"], 15);
-    }
-    document.getElementById("wish-result").textContent = star + " stars: " + name;
+    img.src = r.art[0];
+    art.appendChild(img);
+    d.appendChild(art);
+    var st = document.createElement("div");
+    st.className = "wish-stars";
+    st.textContent = "★".repeat(r.star);
+    d.appendChild(st);
+    var nm = document.createElement("div");
+    nm.className = "wish-name";
+    nm.textContent = r.name;
+    d.appendChild(nm);
+    return d;
 }
-wishModal.onclick = function () { wishModal.className = ""; };
 
-document.getElementById("wish-btn").onclick = function () {
-    pity = pity + 1;
-    var star = 3, name, emoji, arts, p;
-    if (pity >= 20 || Math.random() < (pity >= 12 ? 0.4 : 0.06)) {
-        star = 5;
-        pity = 0;
-        name = pick(fiveStars);
-        arts = ["images/wish/" + slug(name) + ".jpg", "images/" + slug(name) + ".jpg"];
-    } else if (Math.random() < 0.25) {
-        star = 4;
-        p = pick(fourStars);
-        name = p[0]; emoji = p[1];
-        arts = ["images/wish/" + slug(name) + ".jpg"];
-    } else {
-        p = pick(threeStars);
-        name = p[0]; emoji = p[1];
-        arts = ["images/wish/" + slug(name) + ".jpg"];
-    }
-    try { localStorage.setItem("pity", pity); } catch (err) {}
-    showPity();
-    openWish(star, name, emoji, arts);
-    foundEgg("wish");
+function wishFx(star) {
+    flash(star == 5 ? "rgba(255, 215, 0, 0.8)" : star == 4 ? "rgba(160, 100, 220, 0.5)" : star == 3 ? "rgba(80, 140, 255, 0.4)" : "rgba(150, 155, 165, 0.4)");
+    if (star == 5) { emojiRain(["⭐", "✨", "🌟"], 60); } else if (star == 4) { emojiRain(["✨"], 15); }
+}
+
+var seq = null;
+var seqTimer;
+
+function showSingle(r) {
+    clearTimeout(seqTimer);
+    seq = null;
+    wishModal.innerHTML = "";
+    wishModal.appendChild(makeCard(r));
+    wishModal.className = "show";
+    wishFx(r.star);
+}
+
+function showTen(list) {
+    clearTimeout(seqTimer);
+    var best = Math.max.apply(null, list.map(function (r) { return r.star; }));
+    seq = { list: list, i: 0 };
+    wishModal.innerHTML = "";
+    wishModal.className = "show";
+    var m = document.createElement("div");
+    m.className = "meteor";
+    m.style.setProperty("--mc", best == 5 ? "#ffd54a" : best == 4 ? "#b58cf0" : "#7aa7ff");
+    wishModal.appendChild(m);
+    seqTimer = setTimeout(nextCard, 900);
+}
+
+function nextCard() {
+    if (!seq) { return; }
+    clearTimeout(seqTimer);
+    if (seq.i >= seq.list.length) { showGrid(); return; }
+    var r = seq.list[seq.i];
+    seq.i = seq.i + 1;
+    wishModal.innerHTML = "";
+    wishModal.appendChild(makeCard(r));
+    var skip = document.createElement("button");
+    skip.className = "btn";
+    skip.textContent = "Skip ▶▶";
+    skip.onclick = function (event) { event.stopPropagation(); showGrid(); };
+    wishModal.appendChild(skip);
+    wishFx(r.star);
+    seqTimer = setTimeout(nextCard, 1000);
+}
+
+function showGrid() {
+    clearTimeout(seqTimer);
+    var list = seq.list;
+    seq = null;
+    wishModal.innerHTML = "";
+    var g = document.createElement("div");
+    g.className = "wish-grid";
+    list.forEach(function (r) { g.appendChild(makeCard(r, true)); });
+    wishModal.appendChild(g);
+    wishModal.className = "show";
+}
+
+wishModal.onclick = function () {
+    if (seq) { nextCard(); return; }
+    wishModal.className = "";
 };
+
+function doWish(n) {
+    var list = [];
+    for (var i = 0; i < n; i++) { list.push(pullOne()); }
+    saveG(); showPity(); renderHist();
+    var best = list[0];
+    list.forEach(function (r) {
+        if (r.star > best.star) { best = r; }
+        if (r.star == 5) {
+            showToast(r.win ? "You won the 50/50!" : "Lost the 50/50... your next 5★ is guaranteed featured!");
+        }
+    });
+    wishResult.textContent = (n == 1 ? "" : "Best of 10: ") + best.star + " stars: " + best.name;
+    if (n == 1) { showSingle(list[0]); } else { showTen(list); }
+    foundEgg("wish");
+}
+wishBtn.onclick = function () { doWish(1); };
+wish10.onclick = function () { doWish(10); };
 
 // ----- Contact form: sent with Netlify Forms (goes to your email), then a bottle drops in -----
 var form = document.getElementById("contact-form");
