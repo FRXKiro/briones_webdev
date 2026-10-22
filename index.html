@@ -82,16 +82,19 @@ with <span class="egg" id="egg-paimon">Paimon</span> floating beside me.</p>
 <button class="el el-pyro">Pyro</button>
 <button class="el el-cryo">Cryo</button>
 </div>
+<!-- old wish controls stay in the page (script.js needs them) but are hidden; the Wish section below is the one people use -->
+<div id="old-wish" hidden>
 <button class="btn" id="wish-btn">Make a Wish</button> <span id="pity"></span>
-<a class="btn" href="#wish">Open the Wish screen</a>
 <p id="wish-result"></p>
-
-<p><button class="btn" id="nopress">Do NOT press</button></p>
+</div>
+<p><a class="btn" href="#wish">Go to the Wish screen</a> <button class="btn" id="nopress">Do NOT press</button></p>
 <p id="nopress-reply"></p>
 
-<h3>Secrets Codex <span id="codex-count">0 / 0</span></h3>
+<details id="codex-box">
+<summary>Secrets Codex <span id="codex-count">0 / 0</span></summary>
 <ul id="codex-list"></ul>
 <button class="btn" id="hint-btn">Hint from Paimon</button>
+</details>
 </div>
 </section>
 

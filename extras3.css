@@ -67,11 +67,17 @@ footer .foot a, footer .foot button { color: inherit; background: none; border: 
   #wish-close { display: inline-block; float: right; }
 }
 
-/* U96 codex */
-#codex-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
-#codex-list li { background: rgba(255,255,255,.7); color: #2b2b3a; border-radius: 10px; padding: 8px; font-size: .85rem; }
-#codex-list li.got { border: 2px solid #f5c542; }
-#codex-list b, #codex-list span { display: block; }
+/* U96 codex (dropdown, compact chips) */
+#codex-box { margin-top: 14px; text-align: left; }
+#codex-box summary { cursor: pointer; font-weight: 700; padding: 8px 12px; border: 2px solid #f5c542; border-radius: 12px; background: rgba(255,255,255,.12); list-style: none; }
+#codex-box summary::-webkit-details-marker { display: none; }
+#codex-box summary::after { content: ' \25BE'; }
+#codex-box[open] summary::after { content: ' \25B4'; }
+#codex-list { list-style: none; margin: 10px 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 6px; max-height: 240px; overflow-y: auto; }
+#codex-list li { background: rgba(255,255,255,.8); color: #2b2b3a; border-radius: 8px; padding: 5px 8px; font-size: .78rem; line-height: 1.25; }
+#codex-list li.got { border: 2px solid #f5c542; font-weight: 700; }
+#codex-list small { display: block; font-size: .68rem; opacity: .8; }
+.x3-quiet #wish-modal, .x3-quiet #banner, .x3-quiet #flash { visibility: hidden !important; }
 #nopress-reply { min-height: 1.5em; }
 
 /* E120 cookie banner */
