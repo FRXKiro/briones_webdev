@@ -208,7 +208,7 @@ aboutImg.onclick = function () {
         mood = next;
         aboutImg.className = next;
         if (next == "happy") {
-            aboutImg.src = "images/citlali.jpg";
+            aboutImg.src = "images/happy_citlali.jpg";
             aboutImg.alt = "Cheerful Citlali";
             aboutSection.classList.remove("angry");
             document.body.classList.add("cheerful");
