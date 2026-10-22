@@ -290,7 +290,7 @@ function showPity() {
 }
 function renderHist() {
     histBox.innerHTML = "";
-    G.hist.forEach(function (h) {
+    G.hist.slice(0, 30).forEach(function (h) {
         var chip = document.createElement("span");
         chip.className = "chip r" + h.s;
         chip.textContent = h.s + "★ " + h.n;
@@ -329,8 +329,8 @@ function pullOne() {
     }
     r.art = ["images/wish/" + slug(r.name) + ".jpg"];
     if (r.star == 5) { r.art.push("images/" + slug(r.name) + ".jpg"); }
-    G.hist.unshift({ s: r.star, n: r.name });
-    G.hist = G.hist.slice(0, 30);
+    G.hist.unshift({ s: r.star, n: r.name, t: Date.now() });
+    G.hist = G.hist.slice(0, 1000);
     return r;
 }
 

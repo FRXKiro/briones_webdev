@@ -354,33 +354,6 @@ doWish = function (n) {
 wishInfo();
 
 // Wish section buttons -> the same system as the (hidden) old buttons
-function renderResults(items) {
-  var box = $('#w-results');
-  if (!box) { return; }
-  box.innerHTML = '';
-  items.forEach(function (r) {
-    var d = document.createElement('div');
-    d.className = 'w-item' + (r.s == 5 ? ' s5' : '');
-    var img = document.createElement('img');
-    img.alt = r.n;
-    var srcs = ['images/wish/' + slug(r.n) + '.jpg'];
-    if (r.s == 5) { srcs.push('images/' + slug(r.n) + '.jpg'); }
-    var tried = 0;
-    img.onerror = function () {
-      tried++;
-      if (tried < srcs.length) { img.src = srcs[tried]; } else { img.remove(); }
-    };
-    img.src = srcs[0];
-    d.appendChild(img);
-    var nm = document.createElement('div');
-    nm.textContent = r.n;
-    d.appendChild(nm);
-    var em = document.createElement('em');
-    em.textContent = '\u2605'.repeat(r.s);
-    d.appendChild(em);
-    box.appendChild(d);
-  });
-}
 function showWPity() {
   var p = $('#w-pity');
   if (p) { p.textContent = pityBox.textContent; }
@@ -392,14 +365,13 @@ showPity();
 var realWish2 = doWish;
 doWish = function (n) {
   realWish2(n);
-  renderResults(G.hist.slice(0, n));
   showWPity();
 };
 function safeWish(n) {
   var out = $('#w-last');
   try {
     doWish(n);
-    if (out) { out.textContent = wishResult.textContent; }
+    if (out) { out.textContent = ''; }
   } catch (err) {
     if (out) { out.textContent = 'Wish error: ' + err.message; }
     if (window.console) { console.error(err); }
@@ -407,6 +379,63 @@ function safeWish(n) {
 }
 if ($('#w1')) { $('#w1').addEventListener('click', function () { safeWish(1); }); }
 if ($('#w10')) { $('#w10').addEventListener('click', function () { safeWish(10); }); }
+
+
+// ===== Wish History (like the in-game Wish History screen) =====
+var weaponNames = {};
+fourWeapons.concat(threeWeapons, oneWeapons).forEach(function (w) { weaponNames[w[0]] = 1; });
+function two(n) { return n < 10 ? '0' + n : '' + n; }
+function fmtTime(t) {
+  if (!t) { return '--'; }
+  var d = new Date(t);
+  return d.getFullYear() + '-' + two(d.getMonth() + 1) + '-' + two(d.getDate()) + ' ' + two(d.getHours()) + ':' + two(d.getMinutes()) + ':' + two(d.getSeconds());
+}
+var HIST_ROWS = 6, histPage = 1;
+var histBox = make('div', 'x3-hist',
+  '<div class="hist-panel" role="dialog" aria-modal="true" aria-label="Wish History">' +
+    '<button class="hist-x" type="button" aria-label="Close">&times;</button>' +
+    '<h3>Wish History</h3>' +
+    '<div class="hist-tab">Character Event Wish</div>' +
+    '<table><thead><tr><th>Item Type</th><th>Item Name</th><th>Wish Type</th><th>Time</th></tr></thead><tbody></tbody></table>' +
+    '<div class="hist-nav"><button class="hist-prev" type="button" aria-label="Previous page">&#9664;</button><span class="hist-page"></span><button class="hist-next" type="button" aria-label="Next page">&#9654;</button></div>' +
+    '<small class="hist-total"></small>' +
+  '</div>');
+function renderHistory() {
+  var list = G.hist || [];
+  var pages = Math.max(1, Math.ceil(list.length / HIST_ROWS));
+  histPage = Math.min(Math.max(1, histPage), pages);
+  var body = histBox.querySelector('tbody');
+  body.innerHTML = '';
+  for (var i = 0; i < HIST_ROWS; i++) {
+    var h = list[(histPage - 1) * HIST_ROWS + i];
+    var tr = document.createElement('tr');
+    if (h) {
+      var cells = [weaponNames[h.n] ? 'Weapon' : 'Character', h.n, 'Character Event Wish', fmtTime(h.t)];
+      cells.forEach(function (text, c) {
+        var td = document.createElement('td');
+        td.textContent = text;
+        if (c == 1) { td.className = 'r' + h.s; }
+        tr.appendChild(td);
+      });
+    } else {
+      tr.innerHTML = '<td colspan="4">&nbsp;</td>';
+    }
+    body.appendChild(tr);
+  }
+  if (list.length == 0) { body.rows[0].cells[0].textContent = 'No wishes yet. Go make a wish!'; body.rows[0].cells[0].className = 'hist-empty'; }
+  histBox.querySelector('.hist-page').textContent = histPage + ' / ' + pages;
+  histBox.querySelector('.hist-prev').disabled = histPage <= 1;
+  histBox.querySelector('.hist-next').disabled = histPage >= pages;
+  histBox.querySelector('.hist-total').textContent = 'Total wishes: ' + G.total;
+}
+function openHistory() { histPage = 1; renderHistory(); histBox.classList.add('show'); histBox.querySelector('.hist-x').focus(); }
+function closeHistory() { histBox.classList.remove('show'); }
+histBox.querySelector('.hist-prev').addEventListener('click', function () { histPage--; renderHistory(); });
+histBox.querySelector('.hist-next').addEventListener('click', function () { histPage++; renderHistory(); });
+histBox.querySelector('.hist-x').addEventListener('click', closeHistory);
+histBox.addEventListener('click', function (e) { if (e.target === histBox) { closeHistory(); } });
+document.addEventListener('keydown', function (e) { if (e.key == 'Escape') { closeHistory(); } });
+if ($('#w-history-btn')) { $('#w-history-btn').addEventListener('click', openHistory); }
 
 // phone bottom sheet
 if ($('#wish-open')) {

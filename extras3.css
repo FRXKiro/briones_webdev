@@ -57,11 +57,6 @@ footer .foot a, footer .foot button { color: inherit; background: none; border: 
 #banner-thumbs .bt:hover { opacity: 1; }
 #banner-thumbs .bt.on { border-color: #f5c542; opacity: 1; box-shadow: 0 0 10px #f5c542; transform: scale(1.12); }
 .wish-btns { display: flex; gap: 12px; justify-content: center; margin: 12px 0; }
-#w-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin-top: 10px; }
-.w-item { background: #f4f1ea; border-radius: 12px; padding: 6px; font-size: .85rem; }
-.w-item img { width: 100%; height: 90px; object-fit: cover; object-position: top; border-radius: 8px; }
-.w-item.s5 { background: linear-gradient(135deg, #ffe08a, #f5c542); box-shadow: 0 0 12px #f5c542; }
-.w-item em { display: block; font-size: .75rem; }
 .flash-gold { animation: x3gold 1.2s; }
 .flash-rainbow { animation: x3rainbow 2.4s; }
 @keyframes x3gold { 0%, 100% { box-shadow: 0 0 0 #f5c542; } 40% { box-shadow: 0 0 60px 20px #f5c542; } }
@@ -191,3 +186,27 @@ footer { position: relative; z-index: 1; }              /* sky/rain overlays wer
 /* pull screen: make sure nothing can leave it invisible or unclickable */
 #wish-modal.show { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
 #w-last { min-height: 1.5em; font-weight: 700; }
+
+/* Wish History (in-game style) */
+.x3-hist { position: fixed; inset: 0; z-index: 9210; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; padding: 12px; }
+.x3-hist.show { display: flex; }
+.hist-panel { position: relative; width: min(680px, 100%); background: #ece5d8; color: #4a4a58; border-radius: 14px; border: 4px solid #d3bc8e; box-shadow: 0 0 40px rgba(0,0,0,.6); padding: 18px 22px 14px; text-align: center; }
+.hist-panel h3 { font-family: Georgia, serif; font-size: 1.5rem; color: #3b4255; margin-bottom: 10px; }
+.hist-x { position: absolute; top: 8px; right: 12px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid #3b4255; background: none; color: #3b4255; font-size: 1.3rem; line-height: 1; cursor: pointer; }
+.hist-x:hover { background: #3b4255; color: #ece5d8; }
+.hist-tab { display: inline-block; background: #3b4255; color: #ece5d8; padding: 5px 22px; border-radius: 16px; font-size: .9rem; margin-bottom: 10px; }
+.hist-panel table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .92rem; }
+.hist-panel th { background: #d9d0bd; color: #3b4255; font-weight: 600; padding: 7px 6px; }
+.hist-panel td { padding: 9px 6px; border-bottom: 1px solid #d3c9b4; height: 40px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hist-panel tbody tr:nth-child(odd) td { background: rgba(255,255,255,.35); }
+.hist-panel td.r5 { color: #bd6932; font-weight: 700; }
+.hist-panel td.r4 { color: #a256e1; font-weight: 700; }
+.hist-panel td.r3 { color: #4f79c4; }
+.hist-panel td.r1 { color: #7a7f88; }
+.hist-panel td.hist-empty { text-align: center; opacity: .75; }
+.hist-nav { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 12px 0 6px; }
+.hist-nav button { width: 34px; height: 34px; border-radius: 50%; border: 2px solid #3b4255; background: none; color: #3b4255; cursor: pointer; }
+.hist-nav button:hover:not(:disabled) { background: #3b4255; color: #ece5d8; }
+.hist-nav button:disabled { opacity: .3; cursor: default; }
+.hist-total { opacity: .7; }
+@media (max-width: 560px) { .hist-panel { padding: 16px 10px 12px; } .hist-panel table { font-size: .78rem; } .hist-panel td, .hist-panel th { padding: 6px 3px; } }
