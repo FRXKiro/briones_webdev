@@ -1,5 +1,3 @@
-// extras3.js - second batch, merged with script.js and extras.js.
-// Loads LAST. It reuses your existing foundEgg, say, showToast, showBanner and the old gacha (G, pullOne, doWish).
 (function () {
 
 // ===== settings you may need to edit =====
