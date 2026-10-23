@@ -113,7 +113,7 @@ var heroTheme = {
     Furina: "#3a7bd5", Mavuika: "#e0603f", Columbina: "#b9a7e8", Anastasya: "#f08fb0"
 };
 var heroFx = {
-    Venti: ["🍃", "🪶"], Zhongli: ["⛰️", "💛"], Ei: ["⚡", "💜"], Nahida: ["🌿", "🌱"], Furina: ["💧", "👏"], Mavuika: ["🔥", "❤️"]
+    Venti: ["🍃", "💚"], Zhongli: ["⛰️", "💛"], Ei: ["⚡", "💜"], Nahida: ["🌿", "🌱"], Furina: ["💧", "👏"], Mavuika: ["🔥", "❤️"]
 };
 
 for (var t = 0; t < thumbs.length; t++) {
@@ -237,7 +237,6 @@ for (var f = 0; f < 22; f++) {
 }
 
 // ----- Gacha wish: featured banner, 50/50, pity up to 90, x10 pulls -----
-// Pictures: images/wish/<name>.jpg (lowercase, hyphens, no apostrophes)
 var limited5 = ["Venti", "Zhongli", "Ei", "Nahida", "Furina", "Mavuika", "Columbina", "Citlali", "Ganyu", "Linnea", "Skirk", "Wanderer", "Flins", "Arlecchino"];
 var standard5 = ["Dehya", "Jean", "Mona", "Qiqi", "Tighnari", "Yumemizuki Mizuki"];
 var fourChars = [["Alyosha", "✨"], ["Bennett", "🔥"], ["Chevreuse", "🔥"], ["Collei", "🌱"], ["Jahoda", "✨"], ["Kujou Sara", "⚡"], ["Ningguang", "💎"], ["Ororon", "⚡"]];
@@ -444,9 +443,7 @@ function doWish(n) {
 wishBtn.onclick = function () { doWish(1); };
 wish10.onclick = function () { doWish(10); };
 
-// ----- Contact form: sent with Web3Forms (works on Vercel, Netlify, anywhere), then a bottle drops in -----
-// 1) Go to https://web3forms.com, type your email, and they email you an Access Key.
-// 2) Paste that key between the quotes below.
+// ----- Contact form: sent with Web3Forms (works on Vercel, Netlify, anywhere) 
 var WEB3FORMS_KEY = "c0d42911-4153-4fd0-b429-f01d7486ce54";
 
 var form = document.getElementById("contact-form");
