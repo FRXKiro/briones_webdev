@@ -100,7 +100,6 @@ var NEW = [
   { id: 'clicker',  name: 'Clicker of Teyvat',     hint: 'Keep clicking. A lot.', count: true },
   { id: 'grass',    name: 'Touch Grass',           hint: 'Keep clicking. Even more.', count: true },
   { id: 'eclipse',  name: 'Eclipse',               hint: 'The sun and moon button has a limit.', count: true },
-  { id: 'rainbow',  name: 'Rainbow Wish',          hint: 'Hard pity looks different.', count: true },
   { id: 'pigeon',   name: 'Pigeon Mail',           hint: 'Some letters get a special courier.', count: false },
   { id: 'cookie',   name: 'Sweet Madame Cookies',  hint: 'A banner shows up once.', count: false },
   { id: 'ad',       name: 'Runaway Ad',            hint: 'A pop-up that is hard to close.', count: false },
